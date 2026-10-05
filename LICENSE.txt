@@ -1,0 +1,11 @@
+Vadentis Foundry VTT System — Licensing Notice
+
+Copyright in the Vadentis game, its rules, setting, text, illustrations, maps, logos, and other creative material remains with their respective rights holders.
+
+No permission is granted by this file to reuse, redistribute, sublicense, sell, or create derivative works from Vadentis game content or bundled media except where a separate license or written authorization expressly permits it.
+
+The Foundry VTT implementation contains software code created and/or modified specifically to run Vadentis in Foundry Virtual Tabletop. Before publishing this repository under an open-source software license, the rights holder should choose the intended software license and confirm that all pre-existing code may legally be distributed under it. Until then, all rights are reserved for that code except as necessary to download and use the released package for its intended purpose.
+
+Foundry Virtual Tabletop is a trademark of Foundry Gaming LLC. This project is not affiliated with or endorsed by Foundry Gaming LLC unless expressly stated otherwise.
+
+Third-party assets, where present, remain subject to their own licenses and attribution requirements. See ASSET-LICENSES.md.

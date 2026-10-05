@@ -1,0 +1,24 @@
+<form class="{{cssClass}} flexcol vadentis-commerce-sheet" autocomplete="off">
+  <header class="sheet-header flexrow">
+    <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}" height="100" width="100"/>
+    <div class="header-fields">
+      <h1 class="charname"><input name="name" type="text" value="{{name}}" placeholder="Nom du commerce"/></h1>
+      <div class="vadentis-commerce-config">
+        <label>Type</label>
+        <select name="system.mode">
+          {{#select data.mode}}
+          <option value="magasin">Magasin</option>
+          <option value="loot">Loot</option>
+          <option value="coffre">Coffre</option>
+          {{/select}}
+        </select>
+      </div>
+      {{#if isGM}}<button type="button" class="vadentis-open-commerce"><i class="fas fa-store"></i> OUVRIR</button>{{/if}}
+    </div>
+  </header>
+  <section class="sheet-body vadentis-commerce-prep">
+    <h2>Préparation du contenu</h2>
+    <p>Ouvre le commerce puis glisse les Items directement dans la zone de stock. Le contenu est sauvegardé dans cet Item.</p>
+    <p><strong>Magasin :</strong> utilise automatiquement <em>Coût</em>. <strong>Loot/Coffre :</strong> distribution gratuite.</p>
+  </section>
+</form>

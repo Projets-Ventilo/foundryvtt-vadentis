@@ -1,0 +1,69 @@
+<div class="vadentis-commerce-window mode-{{mode}}">
+  <div class="commerce-ambient commerce-ambient-left" aria-hidden="true"><i class="fas fa-coins"></i><i class="fas fa-leaf"></i><i class="fas fa-cog"></i></div>
+  <div class="commerce-ambient commerce-ambient-right" aria-hidden="true"><i class="fas fa-key"></i><i class="fas fa-toolbox"></i><i class="fas fa-scroll"></i></div>
+  <header class="commerce-hero">
+    <img src="{{img}}" alt="{{name}}"/>
+    <div><span class="commerce-mode">{{#if isMagasin}}MAGASIN{{/if}}{{#if isLoot}}LOOT{{/if}}{{#if isCoffre}}COFFRE{{/if}}</span><h1>{{name}}</h1></div>
+  </header>
+
+  {{#if isGM}}
+  <div class="commerce-session-bar"><span><i class="fas fa-users"></i> Session partagée en cours</span><button type="button" class="commerce-close-session"><i class="fas fa-door-closed"></i> Clôturer les achats / le lootage</button></div>
+  <section class="commerce-actors">
+    <h2>Personnages connectés</h2>
+    <div class="commerce-actor-selector">
+      {{#each actors}}
+      <label class="commerce-actor-select {{#if selected}}is-selected{{/if}}"><input class="commerce-actor-toggle" data-actor-id="{{id}}" type="checkbox" {{#if selected}}checked{{/if}}><img src="{{img}}"><span>{{name}}</span></label>
+      {{/each}}
+    </div>
+  </section>
+  {{/if}}
+
+  <section class="commerce-fortunes">
+    {{#each actors}}{{#if selected}}
+    <article class="commerce-fortune-card is-selected" data-actor-id="{{id}}">
+      <header class="commerce-character-head"><img src="{{img}}"><div><strong>{{name}}</strong><small>Dépose les objets ici</small></div></header>
+
+      <div class="commerce-cart-dropzone">
+        {{#each cart}}
+        <div class="commerce-cart-line">
+          <img src="{{item.img}}" alt="{{item.name}}"><span class="commerce-cart-name">{{item.name}}</span><b>×{{qty}}</b>
+          {{#if ../../isMagasin}}<span class="commerce-cart-price">{{lineTotal}}</span>{{/if}}
+          {{#if ../../isGM}}<button type="button" class="commerce-cart-remove" data-actor-id="{{../id}}" data-entry-id="{{entryId}}" title="Retirer un exemplaire"><i class="fas fa-minus"></i></button>{{/if}}
+        </div>
+        {{else}}<div class="commerce-cart-empty">Glisse un objet de l'étal sur cette carte</div>{{/each}}
+      </div>
+
+      {{#if ../isGM}}
+        <div class="commerce-private-money">
+          <div class="commerce-money-list">{{#each money}}<span class="commerce-money"><img src="{{img}}"><b>{{amount}}</b> {{name}}</span>{{else}}<em>Aucune monnaie</em>{{/each}}</div>
+          {{#if ../isMagasin}}
+          <select class="commerce-currency" data-actor-id="{{id}}">{{#each money}}<option value="{{id}}">{{name}} — {{amount}}</option>{{else}}<option value="">Aucune monnaie</option>{{/each}}</select>
+          {{/if}}
+        </div>
+        <footer class="commerce-cart-footer">
+          <div class="commerce-cart-total">{{#if ../isMagasin}}Total <strong>{{total}}</strong>{{else}}Distribution gratuite{{/if}}</div>
+          {{#if ../isMagasin}}{{#if firstMoneyId}}<div class="commerce-projected">{{firstMoneyAmount}} → <strong>{{projected}}</strong> {{firstMoneyName}}</div>{{/if}}{{/if}}
+          <div class="commerce-cart-actions"><button type="button" class="commerce-cart-clear" data-actor-id="{{id}}" {{#unless cart.length}}disabled{{/unless}}>Vider</button><button type="button" class="commerce-validate" data-actor-id="{{id}}" {{#unless cart.length}}disabled{{/unless}}>VALIDER</button></div>
+        </footer>
+      {{else}}
+        {{#if canSeeMoney}}<div class="commerce-private-money"><div class="commerce-money-list">{{#each money}}<span class="commerce-money"><img src="{{img}}"><b>{{amount}}</b> {{name}}</span>{{else}}<em>Aucune monnaie</em>{{/each}}</div></div>{{/if}}
+      {{/if}}
+    </article>
+    {{/if}}{{/each}}
+  </section>
+
+  <section class="commerce-stock">
+    <div class="commerce-stock-title"><h2>{{#if isMagasin}}Étal du magasin{{/if}}{{#if isLoot}}Butin{{/if}}{{#if isCoffre}}Contenu du coffre{{/if}}</h2>{{#if isGM}}<span>Glisse les objets sur les cartes des personnages</span>{{/if}}</div>
+    <div class="commerce-items">
+      {{#each stock}}
+      <article class="commerce-item" data-index="{{index}}" {{#if ../isGM}}draggable="true"{{/if}}>
+        <img src="{{item.img}}" alt="{{item.name}}"><div class="commerce-item-main"><strong>{{item.name}}</strong>{{#if ../isMagasin}}<span class="commerce-price">{{cost}}</span>{{/if}}</div>
+        {{#if ../isGM}}
+        <div class="commerce-stock-controls"><label>Qté <input class="commerce-qty" data-index="{{index}}" type="number" min="0" value="{{qty}}"></label><label class="commerce-inf"><input class="commerce-infinite" data-index="{{index}}" type="checkbox" {{#if infinite}}checked{{/if}}>∞</label><button type="button" class="commerce-remove" data-index="{{index}}" title="Retirer"><i class="fas fa-trash"></i></button></div>
+        <div class="commerce-drag-hint"><i class="fas fa-hand-pointer"></i> Glisser vers un personnage</div>
+        {{else}}<div class="commerce-readonly-stock">{{#if infinite}}∞{{else}}× {{displayQty}}{{/if}}</div>{{/if}}
+      </article>
+      {{else}}<div class="commerce-empty">{{#if isGM}}Glisse ici des armes, armures, potions, matériel…{{else}}Rien à présenter pour le moment.{{/if}}</div>{{/each}}
+    </div>
+  </section>
+</div>

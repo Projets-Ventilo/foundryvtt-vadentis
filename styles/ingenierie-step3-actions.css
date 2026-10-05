@@ -1,0 +1,5 @@
+/* VADENTIS Ingénierie — Étape 3 : actions des Assemblages */
+.vadentis-assembly-actions{display:flex;align-items:center;justify-content:center;min-width:104px;margin:0 6px}
+.vadentis-assembly-actions button{width:auto!important;min-width:96px!important;height:30px!important;margin:0!important;padding:4px 9px!important;border:1px solid rgba(224,133,62,.75)!important;border-radius:6px!important;background:linear-gradient(180deg,rgba(112,55,20,.94),rgba(55,27,12,.96))!important;color:#ffe3bf!important;font-size:11px!important;font-weight:800!important;letter-spacing:.04em!important;box-shadow:inset 0 0 0 1px rgba(255,214,160,.08)!important}
+.vadentis-assembly-actions button:hover{filter:brightness(1.16);box-shadow:0 0 8px rgba(224,133,62,.35)!important}
+.vadentis-assembly-actions .vadentis-engineering-recharge{border-color:rgba(104,190,211,.75)!important;background:linear-gradient(180deg,rgba(35,84,94,.94),rgba(18,44,51,.96))!important;color:#d9f8ff!important}

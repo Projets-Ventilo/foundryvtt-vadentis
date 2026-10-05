@@ -1,0 +1,31 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}"/>
+    <div class="header-fields">
+      <h1 class="charname"><input name="name" type="text" value="{{name}}" placeholder="Nom du Talent"/></h1>
+    </div>
+  </header>
+
+  <section class="sheet-body vadentis-talent-item-sheet">
+    <div class="tab" data-group="primary">
+      <ul>
+        <li class="flexrow"><label class="generic-label">XP</label><input type="number" name="system.xp" value="{{data.xp}}" data-dtype="Number"/></li>
+        <li class="flexrow"><label class="generic-label">Condition</label><input type="text" name="system.condition" value="{{data.condition}}" data-dtype="String"/></li>
+        <li class="flexrow"><label class="generic-label">Type de Talent</label><select name="system.talentType"><option value="" {{#unless data.talentType}}selected{{/unless}}>— Générique —</option><option value="sculpture" {{#if isSculptureType}}selected{{/if}}>Sculpture élémentaire</option><option value="alchimie" {{#if isAlchimieType}}selected{{/if}}>Alchimie</option><option value="ingenierie" {{#if isIngenierieType}}selected{{/if}}>Ingénierie élémentaire</option><option value="chantevie" {{#if isChanteVieType}}selected{{/if}}>Chante-vie</option></select></li>
+        <li class="flexrow"><label class="generic-label">Donnée de Sculpture</label>
+          <select name="system.sculptureDonnee">
+            <option value="" {{#unless data.sculptureDonnee}}selected{{/unless}}>— Aucune —</option>
+            {{#each sculptureDonnees as |d|}}<option value="{{d.name}}" {{#if d.selected}}selected{{/if}}>{{d.name}}</option>{{/each}}
+          </select>
+        </li>
+        <li class="flexrow"><label class="generic-label">Sculpture supérieure</label><input type="checkbox" name="system.sculptureSuperieure" {{checked data.sculptureSuperieure}}/></li>
+      </ul>
+      <hr>
+      <h4 class="generic-label">Description</h4>
+      {{editor description target="system.description" button=true owner=owner editable=editable}}
+      <hr>
+      <h4 class="generic-label">Notes</h4>
+      {{editor notes target="system.notes" button=true owner=owner editable=editable}}
+    </div>
+  </section>
+</form>

@@ -1,0 +1,57 @@
+<div class="vadentis-aw10-shell">
+  <header class="vadentis-aw10-hero">
+    <div class="vadentis-aw10-emblem"><img src="systems/foundryvtt-vadentis/images/ingenierie/assemblages.png" alt="Assemblages" style="width:58px!important;height:58px!important;max-width:58px!important;max-height:58px!important;object-fit:contain!important;border:0!important;background:transparent!important;"></div>
+    <div class="vadentis-aw10-hero-copy">
+      <span class="vadentis-aw10-kicker">INGÉNIERIE ÉLÉMENTAIRE</span>
+      <h2>Assemblages</h2>
+      <p><i class="fas fa-user"></i> {{actor.name}}</p>
+    </div>
+  </header>
+
+  <section class="vadentis-aw10-workshop">
+    <div class="vadentis-aw10-section-title"><i class="fas fa-gears"></i><span>Assemblages disponibles</span><small>{{assemblages.length}} objet(s)</small></div>
+    <div class="vadentis-aw10-list">
+      {{#if hasAssemblages}}
+        {{#each assemblages as |item|}}
+        <article class="vadentis-aw10-card" data-item-id="{{item._id}}">
+          <div class="vadentis-aw10-row">
+            <img class="vadentis-aw10-item-icon" src="{{item.img}}" alt="" style="width:44px!important;height:44px!important;max-width:44px!important;max-height:44px!important;object-fit:contain!important;border:0!important;background:transparent!important;">
+            <button type="button" class="vadentis-aw10-name">
+              <strong>{{item.name}}</strong>
+              <span><i class="fas fa-circle-dot"></i> {{item._assembly.orbes}}</span>
+            </button>
+            <div class="vadentis-aw10-charge">
+              <span>CHARGES / UTILISATIONS</span>
+              <strong>{{item._assembly.remaining}} <em>/</em> {{item._assembly.max}}</strong>
+            </div>
+            <div class="vadentis-aw10-action">
+              {{#if item._assembly.remaining}}
+                <button type="button" class="vadentis-aw-use" data-item-id="{{item._id}}"><i class="fas fa-bolt"></i><span>UTILISER</span></button>
+              {{else}}
+                <button type="button" class="vadentis-aw-recharge" data-item-id="{{item._id}}"><i class="fas fa-rotate"></i><span>RECHARGER</span></button>
+              {{/if}}
+            </div>
+            {{#if item._assembly.transferable}}<button type="button" class="vadentis-aw-transfer vadentis-aw10-transfer" data-item-id="{{item._id}}" title="Confier à un personnage connecté"><i class="fas fa-handshake"></i></button>{{/if}}<button type="button" class="vadentis-aw-delete vadentis-aw10-delete" data-item-id="{{item._id}}" title="Supprimer cet Assemblage"><i class="fas fa-trash"></i></button>
+          </div>
+          <div class="vadentis-aw-details vadentis-aw10-details" style="display:none">
+            <div class="vadentis-aw10-description">
+              <h3><i class="fas fa-align-left"></i> Description</h3>
+              <p>{{item.system.description}}</p>
+            </div>
+            <div class="vadentis-aw10-facts">
+              <div><i class="fas fa-circle-dot"></i><span><small>ORBE(S)</small><strong>{{item._assembly.orbes}}</strong></span></div>
+              <div><i class="fas fa-battery-full"></i><span><small>UTILISATIONS</small><strong>{{item._assembly.usesLabel}}</strong></span></div>
+              <div><i class="far fa-clock"></i><span><small>FABRICATION</small><strong>{{item._assembly.time}}</strong></span></div>
+              <div><i class="fas fa-dice-d20"></i><span><small>DIFFICULTÉ</small><strong>{{item._assembly.difficulty}}</strong></span></div>
+            </div>
+            <div class="vadentis-aw-meta"><span class="vadentis-aw-auto vadentis-aw-auto-{{item._assembly.automation}}"><i class="fas fa-gears"></i> {{item._assembly.automationLabel}}</span>{{#if item._assembly.weaponLike}}<span><i class="fas fa-crosshairs"></i> Arme-Assemblage</span>{{/if}}{{#if item._assembly.ammoLike}}<span><i class="fas fa-arrow-right"></i> Munition-Assemblage</span>{{/if}}{{#if item._assembly.transferable}}<span><i class="fas fa-handshake"></i> Peut être confié</span>{{/if}}</div>
+            <div class="vadentis-aw10-footer"><button type="button" class="vadentis-aw-edit" data-item-id="{{item._id}}"><i class="fas fa-pen"></i> Modifier l’objet</button><span><i class="fas fa-chevron-up"></i> Cliquez sur le nom pour replier</span></div>
+          </div>
+        </article>
+        {{/each}}
+      {{else}}
+        <div class="vadentis-aw10-empty"><i class="fas fa-gears"></i><h3>Aucun Assemblage</h3><p>Les Assemblages fabriqués ou confiés à ce personnage apparaîtront ici.</p></div>
+      {{/if}}
+    </div>
+  </section>
+</div>

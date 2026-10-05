@@ -1,0 +1,12 @@
+<div class="control-icon rdd-combat ">
+  <img class="vadentis-hud-togglebutton" src="systems/foundryvtt-vadentis/images/icons/icone_item_armes_cac.webp" width="36" height="36" title="Attaque"/>
+  <div class="vadentis-hud-list tokenhudext left">
+    {{#each armes as |arme key|}}
+    {{#if arme.system.equipee}}
+    <div class="control-icon tokenhudicon vadentis-hud-menu vadentis-attaque" data-actor-id="{{../actor._id}}" data-arme-id="{{arme._id}}"  title="{{arme.name}}">
+      <label>C:{{arme.name}}</label>
+    </div>
+    {{/if}}
+    {{/each}}
+  </div>
+</div>

@@ -1,0 +1,188 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+  <header class="sheet-header vadentis-status-header">
+
+    <img
+      class="profile-img vadentis-status-img"
+      src="{{img}}"
+      data-edit="img"
+      title="{{name}}"
+    />
+
+    <div class="header-fields">
+
+      <h1 class="charname vadentis-status-name">
+        <input
+          name="name"
+          type="text"
+          value="{{name}}"
+          placeholder="Nom du statut"
+        />
+      </h1>
+
+      <div class="vadentis-status-subtitle">
+        <i class="fas fa-star"></i>
+        Statut
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <section class="vadentis-status-body">
+
+    <h3 class="vadentis-status-section-title">
+      <i class="fas fa-sliders-h"></i>
+      Modificateurs
+    </h3>
+
+
+    <div class="vadentis-status-modifiers">
+
+      <label>
+        <span>
+          <i class="fas fa-bolt"></i>
+          Initiative
+        </span>
+
+        <input
+          type="number"
+          name="system.initiative"
+          value="{{data.initiative}}"
+          data-dtype="Number"
+        />
+      </label>
+
+
+      <label>
+        <span>
+          <i class="fas fa-fist-raised"></i>
+          Force
+        </span>
+
+        <input
+          type="number"
+          name="system.force"
+          value="{{data.force}}"
+          data-dtype="Number"
+        />
+      </label>
+
+
+      <label>
+        <span>
+          <i class="fas fa-crosshairs"></i>
+          Attaque
+        </span>
+
+        <input
+          type="number"
+          name="system.attaque"
+          value="{{data.attaque}}"
+          data-dtype="Number"
+        />
+      </label>
+
+
+      <label>
+        <span>
+          <i class="fas fa-shield-alt"></i>
+          Défense
+        </span>
+
+        <input
+          type="number"
+          name="system.defense"
+          value="{{data.defense}}"
+          data-dtype="Number"
+        />
+      </label>
+
+
+      <label>
+        <span>
+          <i class="fas fa-running"></i>
+          Vitesse
+        </span>
+
+        <input
+          type="number"
+          name="system.vitesse"
+          value="{{data.vitesse}}"
+          data-dtype="Number"
+        />
+      </label>
+
+
+      <label>
+        <span>
+          <i class="fas fa-magic"></i>
+          Maîtrise Données
+        </span>
+
+        <input
+          type="number"
+          name="system.matriseelementaire"
+          value="{{data.matriseelementaire}}"
+          data-dtype="Number"
+        />
+      </label>
+
+
+      <label>
+        <span>
+          <i class="fas fa-praying-hands"></i>
+          Dévotion
+        </span>
+
+        <input
+          type="number"
+          name="system.devotion"
+          value="{{data.devotion}}"
+          data-dtype="Number"
+        />
+      </label>
+
+    </div>
+
+
+    <div class="vadentis-status-skill-modifiers">
+      <h4><i class="fas fa-dice-d20"></i> Compétences</h4>
+      <p>Ajoutez jusqu’à trois bonus ou malus de Compétence. Ils s’appliquent automatiquement tant que le Statut est actif.</p>
+
+      <div class="vadentis-modifier-row">
+        <select name="system.modifiers.m1.target"><option value="">— Aucune —</option>{{#select data.modifiers.m1.target}}{{#each @root.modifierCompetences}}<option value="competence:{{name}}">{{name}}</option>{{/each}}{{/select}}</select>
+        <select name="system.modifiers.m1.kind">{{#select data.modifiers.m1.kind}}<option value="bonus">Bonus</option><option value="malus">Malus</option>{{/select}}</select>
+        <input type="number" name="system.modifiers.m1.value" value="{{data.modifiers.m1.value}}" min="0" data-dtype="Number" />
+      </div>
+      <div class="vadentis-modifier-row">
+        <select name="system.modifiers.m2.target"><option value="">— Aucune —</option>{{#select data.modifiers.m2.target}}{{#each @root.modifierCompetences}}<option value="competence:{{name}}">{{name}}</option>{{/each}}{{/select}}</select>
+        <select name="system.modifiers.m2.kind">{{#select data.modifiers.m2.kind}}<option value="bonus">Bonus</option><option value="malus">Malus</option>{{/select}}</select>
+        <input type="number" name="system.modifiers.m2.value" value="{{data.modifiers.m2.value}}" min="0" data-dtype="Number" />
+      </div>
+      <div class="vadentis-modifier-row">
+        <select name="system.modifiers.m3.target"><option value="">— Aucune —</option>{{#select data.modifiers.m3.target}}{{#each @root.modifierCompetences}}<option value="competence:{{name}}">{{name}}</option>{{/each}}{{/select}}</select>
+        <select name="system.modifiers.m3.kind">{{#select data.modifiers.m3.kind}}<option value="bonus">Bonus</option><option value="malus">Malus</option>{{/select}}</select>
+        <input type="number" name="system.modifiers.m3.value" value="{{data.modifiers.m3.value}}" min="0" data-dtype="Number" />
+      </div>
+    </div>
+
+    <h3 class="vadentis-status-section-title vadentis-status-description-title">
+      <i class="fas fa-feather-alt"></i>
+      Description
+    </h3>
+
+
+    <div class="vadentis-status-description">
+
+      <textarea
+        name="system.description"
+        placeholder="Description du statut..."
+      >{{data.description}}</textarea>
+
+    </div>
+
+  </section>
+
+</form>

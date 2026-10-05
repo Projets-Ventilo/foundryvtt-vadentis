@@ -1,0 +1,300 @@
+{
+  "Actor": {
+    "types": [
+      "personnage"
+    ],
+    "templates": {
+      "common": {
+        "experience": {
+          "experience": {
+            "total": 0,
+            "disponibe": 0,
+            "label": "Expérience"
+          }
+        },
+        "stats": {
+          "pointsvie": {
+            "value": 0,
+            "max": 0,
+            "label": "Points de Vie"
+          },
+          "pointsenergie": {
+            "value": 0,
+            "max": 0,
+            "label": "Points d'Energie"
+          },
+          "pointsadrenaline": {
+            "value": 0,
+            "max": 0,
+            "label": "Points d'Adrénaline"
+          }
+        },
+        "combat": {
+          "initiative": {
+            "base": 0,
+            "malus": 0,
+            "bonus": 0,
+            "label": "Initiative"
+          },
+          "force": {
+            "base": 0,
+            "malus": 0,
+            "bonus": 0,
+            "label": "Force"
+          },
+          "attaque": {
+            "base": 0,
+            "malus": 0,
+            "bonus": 0,
+            "label": "Attaque"
+          },
+          "defense": {
+            "base": 0,
+            "malus": 0,
+            "bonus": 0,
+            "label": "Défense"
+          },
+          "vitesse": {
+            "base": 0,
+            "malus": 0,
+            "bonus": 0,
+            "label": "Vitesse"
+          }
+        },
+        "magie": {
+          "matriseelementaire": {
+            "base": 0,
+            "malus": 0,
+            "bonus": 0,
+            "label": "Maîtrise Données"
+          },
+          "devotion": {
+            "base": 0,
+            "malus": 0,
+            "bonus": 0,
+            "label": "Dévotion"
+          }
+        }
+      },
+      "background": {
+        "race": "",
+        "history": "Background",
+        "notes": "Notes",
+        "gmnotes": "Notes du MJ",
+        "eyes": "",
+        "hair": "",
+        "weight": "",
+        "genre": "",
+        "age": 0
+      }
+    },
+    "personnage": {
+      "templates": [
+        "background",
+        "common"
+      ]
+    }
+  },
+  "Item": {
+    "types": [
+      "competence",
+      "attribut",
+      "technique",
+      "talent",
+      "sort",
+      "devotion",
+      "armecc",
+      "tir",
+      "armurebouclier",
+      "equipement",
+      "donnee",
+      "eglise",
+      "monnaie",
+      "statut",
+      "commerce"
+    ],
+    "templates": {
+      "sortcommun": {
+        "xp": 0,
+        "pe": 0,
+        "target": "",
+        "difficulty": 0,
+        "description": "",
+        "effect": "",
+        "criticaleffect": "",
+        "notes": "",
+        "damage": "",
+        "effectType": "none",
+        "ismaintain": false,
+        "complexactions": false,
+        "valuecritical": 20,
+        "damagecritical": "",
+        "animation": "auto",
+        "sound": ""
+      },
+      "equipcommun": {
+        "quantite": 1,
+        "equipee": false,
+        "description": "",
+        "effect": "",
+        "enc": 0,
+        "cost": 0,
+        "modifiers": {
+          "m1": {
+            "target": "",
+            "kind": "bonus",
+            "value": 0
+          },
+          "m2": {
+            "target": "",
+            "kind": "bonus",
+            "value": 0
+          },
+          "m3": {
+            "target": "",
+            "kind": "bonus",
+            "value": 0
+          }
+        },
+        "animation": "auto",
+        "sound": ""
+      }
+    },
+    "donnee": {
+      "description": ""
+    },
+    "eglise": {
+      "description": ""
+    },
+    "attribut": {
+      "effect": "",
+      "xp": 0,
+      "notes": ""
+    },
+    "technique": {
+      "condition": "",
+      "effect": "",
+      "pacost": 1,
+      "xp": 0,
+      "notes": ""
+    },
+    "sort": {
+      "donnee": "",
+      "templates": [
+        "sortcommun"
+      ]
+    },
+    "devotion": {
+      "eglise": "",
+      "templates": [
+        "sortcommun"
+      ]
+    },
+    "competence": {
+      "xp": 0,
+      "base": 0,
+      "bonus": 0,
+      "malus": 0,
+      "competencerole": false,
+      "description": ""
+    },
+    "armecc": {
+      "type": "",
+      "damage": "",
+      "criticaldamage": "",
+      "valuecritical": 20,
+      "templates": [
+        "equipcommun"
+      ]
+    },
+    "tir": {
+      "type": "",
+      "damage": "",
+      "criticaldamage": "",
+      "munition": 0,
+      "distance": "",
+      "valuecritical": 20,
+      "templates": [
+        "equipcommun"
+      ]
+    },
+    "armurebouclier": {
+      "type": "",
+      "bonus": "",
+      "malus": "",
+      "templates": [
+        "equipcommun"
+      ]
+    },
+    "equipement": {
+      "templates": [
+        "equipcommun"
+      ]
+    },
+    "monnaie": {
+      "nombre": 0,
+      "enc": 0,
+      "description": ""
+    },
+    "statut": {
+      "actif": false,
+      "description": "",
+      "initiative": 0,
+      "force": 0,
+      "attaque": 0,
+      "defense": 0,
+      "vitesse": 0,
+      "matriseelementaire": 0,
+      "devotion": 0,
+      "modifiers": {
+        "m1": {
+          "target": "",
+          "kind": "bonus",
+          "value": 0
+        },
+        "m2": {
+          "target": "",
+          "kind": "bonus",
+          "value": 0
+        },
+        "m3": {
+          "target": "",
+          "kind": "bonus",
+          "value": 0
+        }
+      }
+    },
+    "commerce": {
+      "mode": "magasin",
+      "stock": [],
+      "actorIds": [],
+      "carts": {}
+    },
+    "talent": {
+      "xp": 0,
+      "condition": "",
+      "description": "",
+      "notes": "",
+      "talentType": "",
+      "sculptureDonnee": "",
+      "sculptureSuperieure": false,
+      "echoName": "",
+      "echoForm": "",
+      "echoEmotion": "",
+      "echoPortrait": "",
+      "echoBound": false,
+      "echoSacrifice": 0,
+      "echoTier": "",
+      "echoHp": 0,
+      "echoHpMax": 0,
+      "echoSkills": {"athletisme": 1, "habilete": 1, "perception": 1, "mental": 1, "social": 0, "connaissances": 0},
+      "echoSkillsLocked": false,
+      "echoAttack": 2,
+      "echoDefense": 9,
+      "echoForce": 1,
+      "echoSpeed": 6,
+      "echoDamageDice": 1,
+      "echoPowersUsed": {}
+    }
+  }
+}

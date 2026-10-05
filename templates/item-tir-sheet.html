@@ -1,0 +1,67 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}"/>
+        <div class="header-fields">
+            <h1 class="charname"><input name="name" type="text" value="{{name}}" placeholder="Name"/></h1>
+        </div>
+    </header>
+
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+
+        <div class="tab" data-group="primary">
+          <ul>
+            <li class="flexrow"><label class="generic-label">Type</label>
+              <select class="competence-base flexrow" type="text" name="system.type" value="{{data.type}}" data-dtype="String">
+                {{#select data.type}}
+                <option value="feuunemain">A feu à 1 main</option>
+                <option value="feudeuxmains">A feu à 2 mains</option>
+                <option value="jetunemain">Jet à 1 main</option>
+                <option value="jetdeuxmain">Jet à 2 main</option>
+                {{/select}}
+              </select> 
+            </li>
+            <li class="flexrow"><label class="generic-label">Dégâts</label><input type="text" name="system.damage" value="{{data.damage}}" data-dtype="String"/></li>
+            <li class="flexrow"><label class="generic-label">Dégâts Critiques</label><input type="text" name="system.criticaldamage" value="{{data.criticaldamage}}" data-dtype="String"/></li>
+            <li class="flexrow"><label class="generic-label">Munitions</label><input type="text" name="system.munition" value="{{data.munition}}" data-dtype="Number"/></li>
+            <li class="flexrow"><label class="generic-label">Distance</label><input type="text" name="system.distance" value="{{data.distance}}" data-dtype="String"/></li>
+            <li class="flexrow"><label class="generic-label">Encombrement</label><input type="text" name="system.enc" value="{{data.enc}}" data-dtype="Number"/></li>
+            <li class="flexrow"><label class="generic-label">Quantité</label><input type="text" name="system.quantite" value="{{data.quantite}}" data-dtype="Number"/></li>
+            <li class="flexrow"><label class="generic-label">Coût</label><input type="text" name="system.cost" value="{{data.cost}}" data-dtype="Number"/></li>
+            <li class="flexrow"><label class="generic-label">Valeur de critique</label>
+              <input type="text" name="system.valuecritical" value="{{data.valuecritical}}" data-dtype="Number"/></li>
+
+            <li class="flexrow"><label class="generic-label">Animation</label>
+              <select class="competence-base flexrow" name="system.animation" data-dtype="String">
+                {{#select data.animation}}<option value="auto">Automatique</option><option value="none">Aucune</option><option value="melee">Mêlée</option><option value="projectile">Projectile</option><option value="impact">Impact</option><option value="explosion">Explosion</option><option value="ray">Rayon</option><option value="lightning">Éclair</option><option value="wave">Onde</option><option value="heal">Soin</option><option value="aura">Aura</option>{{/select}}
+              </select></li>
+            <li class="flexrow vadentis-sound-field"><label class="generic-label">Son (optionnel)</label><div class="vadentis-sound-picker-row"><input type="text" name="system.sound" value="{{data.sound}}" data-dtype="String" placeholder="Choisir un fichier audio…"/><button type="button" class="vadentis-sound-picker" data-type="audio" data-target="system.sound" title="Choisir un fichier audio dans Foundry"><i class="fas fa-music"></i> Choisir un son</button></div></li>
+          </ul>
+
+          <hr>
+          <section class="vadentis-item-modifiers">
+            <h4 class="generic-label"><i class="fas fa-sliders-h"></i> Modificateurs quand équipé</h4>
+            <p class="vadentis-item-modifiers-help">Ces effets s'ajoutent automatiquement tant que le rond « Équipé » est actif. Les bonus/malus saisis sur le personnage restent indépendants.</p>
+            <div class="vadentis-modifier-row">
+              <select name="system.modifiers.m1.target"><option value="">— Aucun —</option>{{#select data.modifiers.m1.target}}<option value="initiative">Initiative</option><option value="force">Force</option><option value="attaque">Attaque</option><option value="defense">Défense</option><option value="vitesse">Vitesse</option><option value="matriseelementaire">Maîtrise Données</option><option value="devotion">Dévotion</option>{{#each @root.modifierCompetences}}<option value="competence:{{name}}">Compétence · {{name}}</option>{{/each}}{{/select}}</select>
+              <select name="system.modifiers.m1.kind">{{#select data.modifiers.m1.kind}}<option value="bonus">Bonus</option><option value="malus">Malus</option>{{/select}}</select>
+              <input type="number" min="0" step="1" name="system.modifiers.m1.value" value="{{data.modifiers.m1.value}}" data-dtype="Number"/>
+            </div>
+            <div class="vadentis-modifier-row">
+              <select name="system.modifiers.m2.target"><option value="">— Aucun —</option>{{#select data.modifiers.m2.target}}<option value="initiative">Initiative</option><option value="force">Force</option><option value="attaque">Attaque</option><option value="defense">Défense</option><option value="vitesse">Vitesse</option><option value="matriseelementaire">Maîtrise Données</option><option value="devotion">Dévotion</option>{{#each @root.modifierCompetences}}<option value="competence:{{name}}">Compétence · {{name}}</option>{{/each}}{{/select}}</select>
+              <select name="system.modifiers.m2.kind">{{#select data.modifiers.m2.kind}}<option value="bonus">Bonus</option><option value="malus">Malus</option>{{/select}}</select>
+              <input type="number" min="0" step="1" name="system.modifiers.m2.value" value="{{data.modifiers.m2.value}}" data-dtype="Number"/>
+            </div>
+            <div class="vadentis-modifier-row">
+              <select name="system.modifiers.m3.target"><option value="">— Aucun —</option>{{#select data.modifiers.m3.target}}<option value="initiative">Initiative</option><option value="force">Force</option><option value="attaque">Attaque</option><option value="defense">Défense</option><option value="vitesse">Vitesse</option><option value="matriseelementaire">Maîtrise Données</option><option value="devotion">Dévotion</option>{{#each @root.modifierCompetences}}<option value="competence:{{name}}">Compétence · {{name}}</option>{{/each}}{{/select}}</select>
+              <select name="system.modifiers.m3.kind">{{#select data.modifiers.m3.kind}}<option value="bonus">Bonus</option><option value="malus">Malus</option>{{/select}}</select>
+              <input type="number" min="0" step="1" name="system.modifiers.m3.value" value="{{data.modifiers.m3.value}}" data-dtype="Number"/>
+            </div>
+          </section>
+          <hr>
+          <h4 class="generic-label">Description</h4>
+          {{editor description target="system.description" button=true owner=owner editable=editable}}
+        </div>
+
+    </section>
+</form>

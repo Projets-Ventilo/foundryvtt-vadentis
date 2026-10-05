@@ -1,0 +1,18 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <header class="sheet-header">
+      <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}"/>
+      <div class="header-fields">
+          <h1 class="charname"><input name="name" type="text" value="{{name}}" placeholder="Name"/></h1>
+      </div>
+  </header>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+
+      <div class="tab" data-group="primary">
+        <h4 class="generic-label">Description</h4>
+        {{editor description target="system.description" button=true owner=owner editable=editable}}
+      </div>
+
+  </section>
+</form>

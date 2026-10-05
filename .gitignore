@@ -1,0 +1,14 @@
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.directory
+*.log
+*.old
+
+# Large runtime assets are distributed in the GitHub Release ZIP,
+# not versioned in the source repository.
+/images/maps/
+/images/scenario/
+
+# Release archives
+*.zip

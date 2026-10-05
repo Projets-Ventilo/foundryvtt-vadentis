@@ -1,0 +1,1011 @@
+<form class="{{cssClass}}" autocomplete="off">
+    {{!-- Sheet Header --}}
+<header class="sheet-header vadentis-character-header">
+  <div class="vadentis-font-zoom-controls" title="Ctrl + molette : taille du texte">
+    <button type="button" class="vadentis-font-zoom-minus">A−</button>
+    <button type="button" class="vadentis-font-zoom-reset"><span class="vadentis-font-zoom-value">100 %</span></button>
+    <button type="button" class="vadentis-font-zoom-plus">A+</button>
+  </div>
+
+  <img
+    class="profile-img vadentis-character-portrait"
+    src="{{img}}"
+    data-edit="img"
+    title="{{name}}"
+  />
+
+  <div class="vadentis-character-identity">
+
+    <h1 class="charname vadentis-character-name">
+      <input
+        name="name"
+        type="text"
+        value="{{name}}"
+        placeholder="Nom"
+      />
+    </h1>
+
+    <div class="vadentis-identity-fields">
+
+      <div class="vadentis-identity-field" title="Titre">
+        <i class="fas fa-crown"></i>
+
+        <input
+          name="system.identite.titre"
+          type="text"
+          value="{{data.identite.titre}}"
+          placeholder="Titre"
+        />
+      </div>
+
+      <div class="vadentis-identity-field" title="Ethnie">
+        <i class="fas fa-users"></i>
+
+        <input
+          name="system.identite.ethnie"
+          type="text"
+          value="{{data.identite.ethnie}}"
+          placeholder="Ethnie"
+        />
+      </div>
+
+      <div class="vadentis-identity-field" title="Origine">
+        <i class="fas fa-map-marker-alt"></i>
+
+        <input
+          name="system.identite.origine"
+          type="text"
+          value="{{data.identite.origine}}"
+          placeholder="Origine"
+        />
+      </div>
+
+    </div>
+
+  </div>
+
+</header>
+
+    {{!-- Sheet Tab Navigation --}}
+    <nav class="sheet-tabs tabs vadentis-tabs" data-group="primary">
+
+  <a class="item" data-tab="principal">
+    <i class="fas fa-user"></i>
+    <span>Principal</span>
+  </a>
+
+  <a class="item" data-tab="capacite">
+    <i class="fas fa-star"></i>
+    <span>Capacités</span>
+  </a>
+
+  <a class="item" data-tab="talents">
+    <i class="fas fa-gem"></i>
+    <span>Talents</span>
+  </a>
+
+  <a class="item" data-tab="combat">
+    <i class="fas fa-shield-alt"></i>
+    <span>Combat</span>
+  </a>
+
+  <a class="item" data-tab="sorts">
+    <i class="fas fa-magic"></i>
+    <span>Sorts</span>
+  </a>
+
+  <a class="item" data-tab="equipement">
+    <i class="fas fa-toolbox"></i>
+    <span>Inventaire</span>
+  </a>
+
+  <a class="item" data-tab="description">
+    <i class="fas fa-book-open"></i>
+    <span>Description</span>
+  </a>
+
+</nav>
+
+    {{!-- Résumé permanent : visible en haut de tous les onglets --}}
+    <div class="vadentis-global-summary">
+      {{#each combatSummary as |stat|}}
+      <div class="vadentis-global-summary-item" title="{{stat.fullLabel}}">
+        <img src="{{stat.img}}" alt="{{stat.label}}">
+        <span>{{stat.label}}</span><strong>{{stat.value}}{{#if stat.suffix}} {{stat.suffix}}{{/if}}</strong>
+      </div>
+      {{/each}}
+    </div>
+
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+
+        {{!-- Carac Tab --}}
+        <div class="tab items" data-group="primary" data-tab="principal">
+          <span><a class="lock-unlock-sheet"><img class="small-button-container" 
+            src="systems/foundryvtt-vadentis/images/icons/{{#if editScore}}unlocked.svg{{else}}locked.svg{{/if}}" alt="Editable/Vérouillé"
+            >{{#if editScore}}Editable{{else}}Vérouillé{{/if}}</a>
+          </span>
+          <div class="grid grid-2col">
+            <div class="">
+
+              <span class="generic-label"><h3>Vitalité</h3></span>
+              <ul class="stat-list alternate-list vadentis-vitality-list">
+                <li class="stat list-item vadentis-vitality-card" data-attribute="pointsvie">
+                  <span class="stat-label tooltip tooltip-nobottom">Points de Vie</span>
+                  <img class="sheet-competence-img" src="systems/foundryvtt-vadentis/images/icons/feuille_perso_PV.webp"/>
+                  <div class="vadentis-vitality-values">
+                    <label><span>Actuel</span><select class="stat-value" type="text" name="system.stats.pointsvie.value" value="{{data.stats.pointsvie.value}}" data-dtype="Number" {{#unless @root.editScore}}disabled{{/unless}}>{{#select data.stats.pointsvie.value}}{{{@root.optionsPV}}}{{/select}}</select></label>
+                    <label><span>Max</span><select class="stat-value" type="text" name="system.stats.pointsvie.max" value="{{data.stats.pointsvie.max}}" data-dtype="Number" {{#unless @root.editScore}}disabled{{/unless}}>{{#select data.stats.pointsvie.max}}{{{@root.optionsPV}}}{{/select}}</select></label>
+                  </div>
+                </li>
+                <li class="stat list-item vadentis-vitality-card" data-attribute="pointsenergie">
+                  <span class="stat-label tooltip tooltip-nobottom">Points d'Énergie</span>
+                  <img class="sheet-competence-img" src="systems/foundryvtt-vadentis/images/icons/feuille_perso_PE.webp"/>
+                  <div class="vadentis-vitality-values">
+                    <label><span>Actuel</span><select class="stat-value" type="text" name="system.stats.pointsenergie.value" value="{{data.stats.pointsenergie.value}}" data-dtype="Number" {{#unless @root.editScore}}disabled{{/unless}}>{{#select data.stats.pointsenergie.value}}{{{@root.optionsPE}}}{{/select}}</select></label>
+                    <label><span>Max</span><select class="stat-value" type="text" name="system.stats.pointsenergie.max" value="{{data.stats.pointsenergie.max}}" data-dtype="Number" {{#unless @root.editScore}}disabled{{/unless}}>{{#select data.stats.pointsenergie.max}}{{{@root.optionsPE}}}{{/select}}</select></label>
+                  </div>
+                </li>
+                <li class="stat list-item vadentis-vitality-card" data-attribute="pointsadrenaline">
+                  <span class="stat-label tooltip tooltip-nobottom">Points d'Adrénaline</span>
+                  <img class="sheet-competence-img" src="systems/foundryvtt-vadentis/images/icons/feuille_perso_PA.webp"/>
+                  <div class="vadentis-vitality-values">
+                    <label><span>Actuel</span><select class="stat-value" type="text" name="system.stats.pointsadrenaline.value" value="{{data.stats.pointsadrenaline.value}}" data-dtype="Number" {{#unless @root.editScore}}disabled{{/unless}}>{{#select data.stats.pointsadrenaline.value}}{{{@root.optionsPA}}}{{/select}}</select></label>
+                    <label><span>Max</span><select class="stat-value" type="text" name="system.stats.pointsadrenaline.max" value="{{data.stats.pointsadrenaline.max}}" data-dtype="Number" {{#unless @root.editScore}}disabled{{/unless}}>{{#select data.stats.pointsadrenaline.max}}{{{@root.optionsPA}}}{{/select}}</select></label>
+                  </div>
+                </li>
+              </ul>
+              <div class="rest-buttons flexrow">
+              </div>          
+              <hr>              <span class="generic-label"><h3>Données</h3></span>
+              <ul class="vadentis-principal-source-grid">
+                {{#each donnees as |donnee key|}}
+                <li class="item list-item vadentis-principal-source-card" data-item-id="{{donnee._id}}">
+                  <span class="principal-donnee-frame" title="{{donnee.name}}"><img class="principal-donnee-icon" src="{{donnee.img}}" alt=""></span>
+                  <span class="stat-label tooltip tooltip-nobottom" name="donnee.name">{{donnee.name}}</span>
+                  <div class="item-controls">
+                    <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                    <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                  </div>
+                </li>
+                {{/each}}
+              </ul>  
+
+              <hr><span class="generic-label"><h3>Eglise</h3></span>
+              <ul class="vadentis-principal-source-grid">
+                {{#each eglises as |eglise key|}}
+                <li class="item list-item vadentis-principal-source-card" data-item-id="{{eglise._id}}">
+                  <span class="principal-eglise-frame"><img class="principal-eglise-icon" src="{{eglise.img}}"/></span>
+                  <span class="stat-label tooltip tooltip-nobottom" name="eglise.name">{{eglise.name}}</span>
+                  <div class="item-controls">
+                    <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                    <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                  </div>
+                </li>
+                {{/each}}
+              </ul>  
+                    
+              <hr><span class="generic-label"><h3>Expérience</h3></span>
+              <ul class="stat-list alternate-list">
+                <li class="stat flexrow list-item" data-attribute="experience">
+                  <img class="sheet-competence-img" src="systems/foundryvtt-vadentis/images/icons/feuille_perso_experience.webp"/>
+                  <span class="stat-label flexrow tooltip tooltip-nobottom">Expérience</span>
+                  <input type="text" name="system.experience.experience.total" value="{{data.experience.experience.total}}" data-dtype="Number"/>                  
+                </li>
+              </ul>
+
+<div class="xp-shop-button-container">
+  <button type="button" class="xp-shop-button">
+    <i class="fas fa-coins"></i> Magasin d'XP
+  </button>
+</div>
+            </div>
+            <div class="">
+              <span class="generic-label"><h3>Combat</h3></span>
+              <ul class="stat-list alternate-list">
+                <li class="stat flexrow" >
+                  <span class="generic-label flexrow tooltip tooltip-nobottom" name="statlabel"></span>
+                  <span class="flexrow tooltip tooltip-nobottom" name="statlabel">Valeur</span>
+                  <span class="flexrow tooltip tooltip-nobottom" name="statlabel">Malus</span>
+                  <span class="flexrow tooltip tooltip-nobottom" name="statlabel">Bonus</span>
+                  <span class="flexrow tooltip tooltip-nobottom" name="statlabel">Score</span>
+                </li>
+                {{#each data.combat as |mycombat key|}}
+                {{#if (eq mycombat.label "Esquive")}}
+
+                {{else}}
+               <li class="stat flexrow list-item" data-attribute="{{key}}">
+
+  <img
+    class="sheet-competence-img"
+    src="systems/foundryvtt-vadentis/images/icons/feuille_perso_{{key}}.webp"
+  />
+
+  {{#if (eq key "vitesse")}}
+
+  <span
+    class="stat-label combat-label flexrow tooltip tooltip-nobottom vitesse-label"
+    name="system.combat.{{key}}.label"
+  >
+    {{mycombat.label}}
+  </span>
+
+{{else}}
+  {{#if (eq key "defense")}}
+  <span class="stat-label combat-label flexrow tooltip tooltip-nobottom" name="system.combat.{{key}}.label">{{mycombat.label}}</span>
+  {{else}}
+  <span class="stat-label combat-label flexrow tooltip tooltip-nobottom" name="system.combat.{{key}}.label"><a name="{{key}}">{{mycombat.label}}</a></span>
+  {{/if}}
+{{/if}}
+
+
+  <select
+    class="stat-value flexrow"
+    type="text"
+    name="system.combat.{{key}}.base"
+    value="{{mycombat.base}}"
+    data-dtype="Number"
+    {{#unless @root.editScore}}disabled{{/unless}}
+  >
+    {{selectOptions @root.optionsBase selected=mycombat.base localize=false}}
+  </select>
+
+
+  <select
+    class="stat-value flexrow"
+    type="text"
+    name="system.combat.{{key}}.malus"
+    value="{{mycombat.malus}}"
+    data-dtype="Number"
+    {{#unless @root.editScore}}disabled{{/unless}}
+  >
+    {{selectOptions @root.optionsMalus selected=mycombat.malus localize=false}}
+  </select>
+
+
+  <select
+    class="stat-value flexrow"
+    type="text"
+    name="system.combat.{{key}}.bonus"
+    value="{{mycombat.bonus}}"
+    data-dtype="Number"
+    {{#unless @root.editScore}}disabled{{/unless}}
+  >
+    {{selectOptions @root.optionsBonus selected=mycombat.bonus localize=false}}
+  </select>
+
+
+   {{#if (eq key "vitesse")}}
+
+    <span class="score-label combat-label vitesse-score">
+      {{mycombat.total}} m{{#if mycombat.equipement}} <small class="vadentis-equip-mod" title="Modificateur d’équipement">Équip. {{mycombat.equipement}}</small>{{/if}}
+    </span>
+
+  {{else}}
+    {{#if (eq key "defense")}}
+    <span class="score-label combat-label">Défense {{mycombat.total}}{{#if mycombat.equipement}} <small class="vadentis-equip-mod" title="Modificateur d’équipement">Équip. {{mycombat.equipement}}</small>{{/if}}</span>
+    {{else}}
+    <span class="score-label combat-label"><a name="{{key}}">&nbsp;1d20 + {{mycombat.total}}{{#if mycombat.equipement}} <small class="vadentis-equip-mod" title="Modificateur d’équipement">Équip. {{mycombat.equipement}}</small>{{/if}}</a></span>
+    {{/if}}
+  {{/if}}
+
+</li>
+                {{/if}}
+                {{/each}}                
+              </ul>          
+              <hr><span class="generic-label"><h3>Sorts</h3></span>
+              <ul class="stat-list alternate-list">
+                <li class="stat flexrow" >
+                  <span class="generic-label flexrow tooltip tooltip-nobottom" name="statlabel"></span>
+                  <span class="flexrow tooltip tooltip-nobottom" name="statlabel">Valeur</span>
+                  <span class="flexrow tooltip tooltip-nobottom" name="statlabel">Malus</span>
+                  <span class="flexrow tooltip tooltip-nobottom" name="statlabel">Bonus</span>
+                  <span class="flexrow tooltip tooltip-nobottom" name="statlabel">Score</span>
+                </li>
+                {{#each data.magie as |mymagie key|}}
+                <li class="stat flexrow list-item" data-attribute="{{key}}">
+                  <img class="sheet-competence-img" src="systems/foundryvtt-vadentis/images/icons/feuille_perso_{{key}}.webp"/>
+                  <span class="stat-label magie-label flexrow tooltip tooltip-nobottom" name="system.magie.{{key}}.label"><a name="{{key}}">{{mymagie.label}}</a></span>
+                  <select class="stat-value flexrow" type="text" name="system.magie.{{key}}.base" value="{{mymagie.base}}" data-dtype="Number" {{#unless @root.editScore}}disabled{{/unless}}>
+                    {{selectOptions @root.optionsBase selected=mymagie.base  localize=false}}
+                  </select> 
+                  <select class="stat-value flexrow" type="text" name="system.magie.{{key}}.malus" value="{{mymagie.malus}}" data-dtype="Number" {{#unless @root.editScore}}disabled{{/unless}}>
+                    {{selectOptions @root.optionsMalus selected=mymagie.malus  localize=false}}
+                  </select> 
+                  <select class="stat-value flexrow" type="text" name="system.magie.{{key}}.bonus" value="{{mymagie.bonus}}" data-dtype="Number" {{#unless @root.editScore}}disabled{{/unless}}>
+                    {{selectOptions @root.optionsBonus selected=mymagie.bonus  localize=false}}
+                  </select> 
+                  <span class="score-label magie-label"><a name="{{key}}">&nbsp;1d20 + {{mymagie.total}}{{#if mymagie.equipement}} <small class="vadentis-equip-mod" title="Modificateur d’équipement">Équip. {{mymagie.equipement}}</small>{{/if}}</a></span>
+                </li>
+                {{/each}}
+              </ul>                
+              {{!-- ================================================= --}}
+{{!-- STATUTS                                           --}}
+{{!-- ================================================= --}}
+
+<details class="vadentis-status-panel" {{#if statusPanelOpen}}open{{/if}}>
+
+  <summary class="vadentis-status-panel-header">
+    <span>
+      <i class="fas fa-bolt"></i>
+      Statuts
+    </span>
+  <i class="fas fa-chevron-down vadentis-status-chevron"></i></summary>
+
+  <ul class="item-list vadentis-status-list">
+
+    {{#each statuts as |statut key|}}
+
+      <li
+        class="item vadentis-status-row {{#if statut.system.actif}}active{{/if}}"
+        data-item-id="{{statut._id}}"
+      >
+
+        <img
+          class="vadentis-status-icon"
+          src="{{statut.img}}"
+          title="{{statut.name}}"
+        />
+
+        <span class="vadentis-status-label">
+          {{statut.name}}
+        </span>
+
+        <label
+          class="vadentis-status-toggle"
+          title="{{#if statut.system.actif}}Désactiver ce statut{{else}}Activer ce statut{{/if}}"
+        >
+
+          <input
+            type="checkbox"
+            class="statut-toggle"
+            {{checked statut.system.actif}}
+          />
+
+          <span class="vadentis-status-switch"></span>
+
+        </label>
+
+        <div class="item-controls">
+
+          <a
+            class="item-control item-edit"
+            title="Modifier le statut"
+          >
+            <i class="fas fa-edit"></i>
+          </a>
+
+          <a
+            class="item-control item-delete"
+            title="Supprimer le statut"
+          >
+            <i class="fas fa-trash"></i>
+          </a>
+
+        </div>
+
+      </li>
+
+    {{/each}}
+
+  </ul>
+
+  {{#unless statuts.length}}
+    <div class="vadentis-status-empty">
+      Aucun statut sur ce personnage.
+    </div>
+    {{/unless}}
+
+</details>
+
+          </div>
+          
+        </div>
+
+      </div>
+        
+        {{!-- Skills Tab --}}
+        <div class="tab capacite" data-group="primary" data-tab="capacite">
+          <div class="flexrow">
+            <span><a class="lock-unlock-sheet"><img class="small-button-container" 
+              src="systems/foundryvtt-vadentis/images/icons/{{#if editScore}}unlocked.svg{{else}}locked.svg{{/if}}" alt="Editable/Vérouillé"
+              >{{#if editScore}}Editable{{else}}Vérouillé{{/if}}</a>
+            </span>
+          </div>
+          <div class="grid grid-2col">
+            <div>
+
+  <div class="vadentis-capacity-section-title"><span>Compétences</span></div>
+
+  <ul class="item-list alterne-list">
+    <li class="item flexrow">
+      <span class=""></span>
+      <span class=""></span>
+      <span class="generic-label">Base</span>
+      <span class="generic-label">Malus</span>
+      <span class="generic-label">Bonus</span>
+      <span class=""></span>
+    </li>
+                {{#each competences as |competence key|}}
+                  <li class="item flexrow list-item" data-item-id="{{competence._id}}">
+                    <img class="sheet-competence-img" src="{{competence.img}}"/>
+                    <span class="competence-label"><a>{{competence.name}}</a>{{#if competence.equipement}}<small class="vadentis-equip-mod" title="Modificateur d’équipement">Équip. {{competence.equipement}}</small>{{/if}}{{#if competence.statut}}<small class="vadentis-status-mod" title="Bonus/malus provenant des Statuts">Statut {{competence.statut}}</small>{{/if}}<small class="vadentis-competence-total" title="Score total">Total {{competence.total}}</small></span>
+                    <select class="competence-base flexrow" type="text" skillname="{{competence.name}}" value="{{competence.data.base}}" data-dtype="Number" {{#unless @root.editScore}}disabled{{/unless}}>
+                      {{selectOptions @root.optionsBase selected=competence.system.base localize=false}}
+                    </select> 
+                    <select class="competence-malus flexrow" type="text" skillname="{{competence.name}}" value="{{competence.data.malus}}" data-dtype="Number" {{#unless @root.editScore}}disabled{{/unless}}>
+                      {{selectOptions @root.optionsMalus selected=competence.system.malus localize=false}}
+                    </select> 
+                    <select class="competence-bonus flexrow" type="text" skillname="{{competence.name}}" value="{{competence.data.bonus}}" data-dtype="Number" {{#unless @root.editScore}}disabled{{/unless}}>
+                      {{selectOptions @root.optionsBonus selected=competence.system.bonus localize=false}}
+                    </select> 
+                    <div class="item-controls">
+                      <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                      <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                    </div>
+                  </li>                  
+                {{/each}}
+              </ul>
+            </div>
+            <div>
+              <div class="vadentis-capacity-section-title"><span>Attributs</span></div>
+              <ul class="item-list alterne-list vadentis-capability-list">
+                {{#each attributs as |attribut key|}}
+                  <li class="item list-item vadentis-capability-row" data-item-id="{{attribut._id}}">
+                    <div class="vadentis-capability-line">
+                      <img class="sheet-competence-img" src="{{attribut.img}}"/>
+                      <a class="attribut-details-toggle vadentis-capability-name"><i class="fas fa-chevron-right"></i> {{attribut.name}}</a>
+                      <div class="item-controls"><a class="item-control item-edit" title="Modifier"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Supprimer"><i class="fas fa-trash"></i></a></div>
+                    </div>
+                    <div class="vadentis-capability-details" style="display:none;">
+                      {{#if attribut.system.effect}}<div class="vadentis-detail-block"><strong>Description</strong><div>{{{attribut.system.effect}}}</div></div>{{/if}}
+                      {{#if attribut.system.notes}}<div class="vadentis-detail-block"><strong>Notes</strong><div>{{{attribut.system.notes}}}</div></div>{{/if}}
+                    </div>
+                  </li>
+                {{/each}}
+              </ul>
+              <div class="vadentis-capacity-section-title"><span>Techniques</span></div>
+              <ul class="item-list alterne-list vadentis-capability-list">
+                {{#each techniques as |technique key|}}
+                  <li class="item list-item vadentis-capability-row" data-item-id="{{technique._id}}">
+                    <div class="vadentis-capability-line">
+                      <img class="sheet-competence-img" src="{{technique.img}}"/>
+                      <a class="technique-details-toggle vadentis-capability-name"><i class="fas fa-chevron-right"></i> {{technique.name}}</a>
+                      <button type="button" class="technique-use"><i class="fas fa-bolt"></i> Utiliser la technique (-{{technique.system.pacost}} PA)</button>
+                      <div class="item-controls"><a class="item-control item-edit" title="Modifier"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Supprimer"><i class="fas fa-trash"></i></a></div>
+                    </div>
+                    <div class="vadentis-capability-details" style="display:none;">
+                      {{#if technique.system.condition}}<div class="vadentis-detail-block"><strong>Conditions</strong><div>{{technique.system.condition}}</div></div>{{/if}}
+                      {{#if technique.system.effect}}<div class="vadentis-detail-block"><strong>Description</strong><div>{{{technique.system.effect}}}</div></div>{{/if}}
+                      {{#if technique.system.notes}}<div class="vadentis-detail-block"><strong>Notes</strong><div>{{{technique.system.notes}}}</div></div>{{/if}}
+                    </div>
+                  </li>
+                {{/each}}
+              </ul>
+            </div>
+        </div>
+      </div>
+
+     {{!-- Talents Tab --}}
+<div class="tab talents vadentis-talents-tab" data-group="primary" data-tab="talents">
+  <div class="vadentis-talent-dropzone">
+    {{#if hasTalents}}
+      {{#if hasMultipleTalents}}
+      <nav class="vadentis-talent-subtabs" aria-label="Talents du personnage">
+        {{#each talents as |talent|}}
+        <a class="vadentis-talent-subtab theme-{{talent.talentTheme}} {{#if talent.isActive}}active{{/if}}" data-talent-id="{{talent._id}}">
+          <img src="{{talent.talentSystemIcon}}" alt="{{talent.name}}">
+          <span>{{talent.name}}</span>
+        </a>
+        {{/each}}
+      </nav>
+      {{/if}}
+
+      <div class="vadentis-talent-pages">
+        {{#each talents as |talent|}}
+        {{#if talent.isSculptureGroup}}
+        <article class="vadentis-talent-page vadentis-talent-theme-sculpture {{#if talent.isActive}}active{{/if}}" data-talent-id="{{talent._id}}" {{#unless talent.isActive}}style="display:none;"{{/unless}}>
+          <header class="vadentis-talent-header vadentis-sculpture-group-header">
+            <img class="vadentis-talent-portrait vadentis-sculpture-main-icon" src="{{talent.groupIcon}}" alt="Sculpture élémentaire">
+            <div class="vadentis-talent-heading">
+              <div class="vadentis-talent-kicker">Talent</div>
+              <h2>Sculpture élémentaire</h2>
+              <div class="vadentis-talent-meta"><span><i class="fas fa-dice-d20"></i> Maîtrise Données · DD 12</span><span><i class="fas fa-bolt"></i> 2 PE / segment</span></div>
+            </div>
+          </header>
+
+          <div class="vadentis-talent-content vadentis-sculpture-group-content">
+            {{#each talent.sculptures as |sculpture|}}
+            <section class="item vadentis-sculpture-card" data-item-id="{{sculpture._id}}">
+              <div class="vadentis-sculpture-card-top">
+                <div class="vadentis-sculpture-emblem" data-donnee="{{sculpture.sculptureDonneeKey}}" title="{{sculpture.system.sculptureDonnee}}">
+                  <img class="vadentis-sculpture-donnee-icon" src="{{sculpture.sculptureDonneeImg}}" alt="{{sculpture.system.sculptureDonnee}}">
+                </div>
+                <div class="vadentis-sculpture-panel-main">
+                  <span class="vadentis-sculpture-label">Donnée sculptée</span>
+                  <strong>{{#if sculpture.system.sculptureDonnee}}{{sculpture.system.sculptureDonnee}}{{else}}Donnée non configurée{{/if}}</strong>
+                  <small>Segment {{sculpture.sculptureSegment}}m · 2 PE / segment</small>
+                </div>
+                <div class="item-controls vadentis-sculpture-item-controls"><a class="item-control item-edit" title="Modifier"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Retirer"><i class="fas fa-trash"></i></a></div>
+              </div>
+
+              <div class="vadentis-sculpture-effects">
+                <div class="vadentis-sculpture-effect hostile"><span class="effect-title"><i class="fas fa-bolt"></i> Hostile</span><span>{{sculpture.sculptureHostileEffect}}</span></div>
+                <div class="vadentis-sculpture-effect favorable"><span class="effect-title"><i class="fas fa-shield-alt"></i> Favorable</span><span>{{sculpture.sculptureFavorableEffect}}</span></div>
+              </div>
+
+              <div class="vadentis-sculpture-actions">
+                <div class="vadentis-sculpture-action-column hostile-column">
+                  <div class="vadentis-sculpture-action-heading"><i class="fas fa-bolt"></i> HOSTILE</div>
+                  <button type="button" class="vadentis-sculpture-action hostile" data-talent-id="{{sculpture._id}}" data-mode="hostile" data-origin="self"><i class="fas fa-user"></i><span>DEPUIS LE PERSONNAGE</span></button>
+                  <button type="button" class="vadentis-sculpture-action hostile external" data-talent-id="{{sculpture._id}}" data-mode="hostile" data-origin="external"><i class="fas fa-map-marker-alt"></i><span>DEPUIS UNE SOURCE</span></button>
+                </div>
+                <div class="vadentis-sculpture-action-column favorable-column">
+                  <div class="vadentis-sculpture-action-heading"><i class="fas fa-shield-alt"></i> FAVORABLE</div>
+                  <button type="button" class="vadentis-sculpture-action favorable" data-talent-id="{{sculpture._id}}" data-mode="favorable" data-origin="self"><i class="fas fa-user"></i><span>DEPUIS LE PERSONNAGE</span></button>
+                  <button type="button" class="vadentis-sculpture-action favorable external" data-talent-id="{{sculpture._id}}" data-mode="favorable" data-origin="external"><i class="fas fa-map-marker-alt"></i><span>DEPUIS UNE SOURCE</span></button>
+                </div>
+              </div>
+            </section>
+            {{/each}}
+          </div>
+        </article>
+        {{else}}
+        <article class="item vadentis-talent-page vadentis-talent-theme-{{talent.talentTheme}} {{#if talent.isActive}}active{{/if}}" data-item-id="{{talent._id}}" data-talent-id="{{talent._id}}" {{#unless talent.isActive}}style="display:none;"{{/unless}}>
+          <header class="vadentis-talent-header">
+            <img class="vadentis-talent-portrait" src="{{talent.talentSystemIcon}}" alt="{{talent.name}}">
+            <div class="vadentis-talent-heading">
+              <div class="vadentis-talent-kicker">Talent</div>
+              <h2>{{talent.name}}</h2>
+              <div class="vadentis-talent-meta">
+                {{#if talent.system.xp}}<span><i class="fas fa-star"></i> {{talent.system.xp}} XP</span>{{/if}}
+                {{#if talent.system.condition}}<span><i class="fas fa-lock"></i> {{talent.system.condition}}</span>{{/if}}
+              </div>
+            </div>
+            <div class="item-controls vadentis-talent-controls"><a class="item-control item-edit" title="Modifier le Talent"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Retirer le Talent"><i class="fas fa-trash"></i></a></div>
+          </header>
+          <div class="vadentis-talent-content">
+            {{#if talent.isAlchimie}}
+            <section class="vadentis-alchemy-workshop">
+              <div class="vadentis-alchemy-summary">
+                <div><i class="fas fa-dice-d20"></i><span>Compétence</span><strong>{{#if talent.alchimieCompetence}}+{{talent.alchimieCompetence}}{{else}}—{{/if}}</strong></div>
+                <div><i class="fas fa-coins"></i><span>Matériel d’Alchimie</span><strong>{{#if talent.alchimieVAFound}}{{talent.alchimieVA}}{{else}}—{{/if}}</strong></div>
+              </div>
+              <div class="vadentis-alchemy-grid">
+                {{#each talent.alchimieConceptions as |c|}}
+                <article class="vadentis-alchemy-card {{#if c.special}}special{{/if}}" data-conception-id="{{c.id}}">
+                  <button type="button" class="vadentis-alchemy-toggle" title="Voir les résultats possibles">
+                    <span class="vadentis-alchemy-conception-icon"><img src="{{c.icon}}" alt=""></span>
+                    <span class="vadentis-alchemy-title"><strong>{{c.name}}</strong>{{#if c.note}}<small>{{c.note}}</small>{{/if}}</span>
+                    <span class="vadentis-alchemy-facts"><b><i class="far fa-clock"></i> {{c.time}}</b>{{#if c.cost}}<b><i class="fas fa-coins"></i> {{c.cost}} Mat.{{c.costSuffix}}</b>{{else}}<b><i class="fas fa-coins"></i> Variable</b>{{/if}}</span>
+                    <i class="fas fa-chevron-down vadentis-alchemy-chevron"></i>
+                  </button>
+                  <div class="vadentis-alchemy-tiers" style="display:none;">
+                    {{#each c.tiers as |tier|}}<div class="vadentis-alchemy-tier"><span>{{tier.min}}{{#if (eq tier.max 999)}}+{{else}}–{{tier.max}}{{/if}}</span><strong>{{tier.name}}</strong><p>{{tier.effect}}</p></div>{{/each}}
+                    {{#if c.special}}<div class="vadentis-alchemy-special-note"><i class="fas fa-users"></i> <strong>Travail conjoint avec un élémentiste.</strong> Palier I : 200 Matériel d’Alchimie · Palier II : 300 · Palier III : 400. L’élémentiste dépense également les PE nécessaires au lancement du Sort.</div>{{/if}}
+                  </div>
+                  <div class="vadentis-alchemy-card-actions"><button type="button" class="vadentis-alchemy-craft" data-conception-id="{{c.id}}"><i class="fas fa-flask"></i> FABRIQUER</button></div>
+                </article>
+                {{/each}}
+              </div>
+            </section>
+            {{else}}
+            {{#if talent.isIngenierie}}
+            <section class="vadentis-engineering-workshop">
+              <div class="vadentis-engineering-topline" style="display:grid!important;grid-template-columns:minmax(360px,auto) minmax(360px,1fr)!important;gap:12px!important;align-items:stretch!important;margin-bottom:12px!important"><div class="vadentis-engineering-summary"><div><i class="fas fa-dice-d20"></i><span>Compétence</span><strong>{{#if talent.ingenierieCompetence}}+{{talent.ingenierieCompetence}}{{else}}—{{/if}}</strong></div><div><i class="fas fa-screwdriver-wrench"></i><span>Matériel d’Ingénierie</span><strong>{{#if talent.ingenierieMaterialFound}}{{talent.ingenierieMaterial}}{{else}}—{{/if}}</strong></div></div><div class="vadentis-engineering-orb-mini" style="display:flex!important;flex-direction:column!important;justify-content:center!important;padding:7px 10px!important;border:1px solid rgba(255,218,177,.22)!important;border-radius:9px!important;background:rgba(83,39,18,.32)!important;min-width:0!important"><span class="vadentis-engineering-orb-mini-title"><i class="fas fa-circle-dot"></i> Orbes disponibles</span><div class="vadentis-engineering-orb-mini-grid vadentis-engineering-orb-edit-grid">{{#each talent.ingenierieOrbSummary as |orb|}}<div class="vadentis-engineering-orb-mini-card vadentis-engineering-orb-edit" title="{{orb.name}} : {{orb.qty}}"><img src="{{orb.img}}" alt="{{orb.name}}"><span>{{orb.name}}</span><div class="vadentis-orb-qty-editor"><button type="button" class="vadentis-orb-qty-step" data-orb-name="{{orb.name}}" data-delta="-1">−</button><input class="vadentis-orb-qty-input" type="number" min="0" step="1" value="{{orb.qty}}" data-orb-name="{{orb.name}}"><button type="button" class="vadentis-orb-qty-step" data-orb-name="{{orb.name}}" data-delta="1">+</button></div></div>{{/each}}</div></div></div>
+              <div class="vadentis-engineering-orb-actions"><button type="button" class="vadentis-engineering-fill-self"><i class="fas fa-circle-dot"></i><strong>Remplir un Orbe élémentaire</strong><small>Avec l’une de vos propres Données</small></button><button type="button" class="vadentis-engineering-fill-joint"><i class="fas fa-people-arrows-left-right"></i><strong>Remplir avec un élémentiste</strong><small>Travail conjoint avec un personnage actif</small></button></div><button type="button" class="vadentis-open-assemblages vadentis-open-assemblages-created"><i class="fas fa-gears"></i><span><strong>OUVRIR LES ASSEMBLAGES CRÉÉS</strong><small>Consulter, utiliser, recharger ou confier vos créations.</small></span></button>
+              <h3 class="vadentis-engineering-heading"><i class="fas fa-gears"></i> Assemblages</h3>
+              <div class="vadentis-engineering-list">{{#each talent.ingenierieAssemblages as |a|}}<article class="vadentis-engineering-card"><button type="button" class="vadentis-engineering-toggle"><img class="vadentis-engineering-assembly-icon" src="{{a.icon}}" alt=""><span class="vadentis-engineering-name"><strong>{{a.name}}</strong><small>{{a.description}}</small></span><span class="vadentis-engineering-fact"><i class="far fa-clock"></i> {{a.time}}</span><span class="vadentis-engineering-fact"><i class="fas fa-screwdriver-wrench"></i> {{a.cost}} Mat.</span><span class="vadentis-engineering-fact"><i class="fas fa-circle-dot"></i> {{#each a.orbes}}{{this}}{{#unless @last}} + {{/unless}}{{/each}}</span><i class="fas fa-chevron-down"></i></button><div class="vadentis-engineering-details" style="display:none"><p><b>Utilisations :</b> {{a.uses}}</p><p><b>Difficulté d’activation :</b> {{a.difficulty}}</p><p>{{a.description}}</p></div><button type="button" class="vadentis-engineering-craft" data-assembly-id="{{a.id}}"><i class="fas fa-hammer"></i> FABRIQUER</button></article>{{/each}}</div>
+            </section>
+            {{else}}
+            {{#if talent.isChanteVie}}
+            <section class="vadentis-chantevie-foundation">
+              <div class="vadentis-chantevie-aura">
+                <div class="vadentis-chantevie-mark"><i class="fas fa-music"></i></div>
+                <div class="vadentis-chantevie-intro"><span>LIEN VITAL</span><h3>L’Écho du Chante-vie</h3><p>Une présence née du Chant, liée à votre force vitale.</p></div>
+              </div>
+              <div class="vadentis-chantevie-identity" data-talent-id="{{talent._id}}">
+                <button type="button" class="vadentis-chantevie-portrait vadentis-chantevie-portrait-picker vadentis-echo-token-drag" data-talent-id="{{talent._id}}" draggable="true" title="Cliquer : choisir le portrait · Glisser sur la scène : placer le Token">
+                  {{#if talent.system.echoPortrait}}<img src="{{talent.system.echoPortrait}}" alt="Portrait de l’Écho">{{else}}<i class="fas fa-feather-pointed"></i>{{/if}}
+                  <span class="vadentis-chantevie-portrait-hint"><i class="fas fa-camera"></i></span>
+                </button>
+                <div class="vadentis-chantevie-fields">
+                  <label><span>Nom de l’Écho</span><input class="vadentis-chantevie-field" data-field="echoName" type="text" value="{{talent.system.echoName}}" placeholder="Nom de l’Écho"></label>
+                  <label><span>Forme animale</span><input class="vadentis-chantevie-field" data-field="echoForm" type="text" value="{{talent.system.echoForm}}" placeholder="Ex. renard, chouette, félin…"></label>
+                  <label><span>Émotion fondatrice</span><select class="vadentis-chantevie-field" data-field="echoEmotion"><option value="">— Choisir —</option><option value="joie" {{#if (eq talent.system.echoEmotion "joie")}}selected{{/if}}>Joie</option><option value="colere" {{#if (eq talent.system.echoEmotion "colere")}}selected{{/if}}>Colère</option><option value="peur" {{#if (eq talent.system.echoEmotion "peur")}}selected{{/if}}>Peur</option><option value="chagrin" {{#if (eq talent.system.echoEmotion "chagrin")}}selected{{/if}}>Chagrin</option><option value="espoir" {{#if (eq talent.system.echoEmotion "espoir")}}selected{{/if}}>Espoir</option></select></label>
+                </div>
+              </div>
+              {{#if talent.system.echoBound}}
+              <section class="vadentis-chantevie-bond vadentis-chantevie-bond-sealed">
+                <div><span>LIEN VITAL</span><strong>{{talent.system.echoTier}}</strong></div>
+                <div><span>PV SACRIFIÉS</span><strong>{{talent.system.echoSacrifice}}</strong></div>
+                <div><span>PV DE L’ÉCHO</span><strong>{{talent.system.echoHpMax}}</strong></div>
+                
+              </section>
+              {{else}}
+              <section class="vadentis-chantevie-bond" data-talent-id="{{talent._id}}">
+                <div class="vadentis-chantevie-bond-copy"><span>RITUEL DE LIAISON</span><strong>Quelle part de votre force vitale confiez-vous à l’Écho ?</strong><small>Le sacrifice réduit définitivement les PV maximum du Chante-vie.</small></div>
+                <div class="vadentis-chantevie-sacrifices">
+                  <button type="button" class="vadentis-chantevie-sacrifice" data-value="10"><b>10 PV</b><span>Écho-murmuré</span><small>20 PV</small></button>
+                  <button type="button" class="vadentis-chantevie-sacrifice" data-value="20"><b>20 PV</b><span>Écho-chanté</span><small>30 PV</small></button>
+                  <button type="button" class="vadentis-chantevie-sacrifice" data-value="30"><b>30 PV</b><span>Écho-harmonieux</span><small>40 PV</small></button>
+                  <button type="button" class="vadentis-chantevie-sacrifice" data-value="40"><b>40 PV</b><span>Écho-symphonique</span><small>50 PV</small></button>
+                </div>
+              </section>
+              {{/if}}
+              {{#if talent.system.echoBound}}
+              <section class="vadentis-echo-sheet" data-talent-id="{{talent._id}}">
+                <header class="vadentis-echo-sheet-title"><div><h3>{{#if talent.system.echoName}}{{talent.system.echoName}}{{else}}L’Écho{{/if}}</h3><small>{{talent.system.echoForm}} · {{talent.system.echoTier}}</small></div><div class="vadentis-echo-nature"><i class="fas fa-wave-square"></i><b>Nature stable</b><small>Immunisé aux bonus et malus extérieurs</small></div>{{#if talent.echoAffinitiesView.length}}<div class="vadentis-echo-affinity-badge"><i class="fas fa-gem"></i><b>{{talent.echoAffinitiesView.length}} Affinité(s) de Donnée</b><small>Pouvoirs permanents</small></div>{{/if}}</header>
+                <div class="vadentis-echo-vitals"><div class="vadentis-echo-hp"><span><i class="fas fa-heart"></i> POINTS DE VIE</span><div class="vadentis-echo-hp-control"><button type="button" class="vadentis-echo-hp-step" data-delta="-1">−</button><input type="number" class="vadentis-echo-hp-input" min="0" max="{{talent.system.echoHpMax}}" value="{{talent.echoView.hp}}"><b>/ {{talent.system.echoHpMax}}</b><button type="button" class="vadentis-echo-hp-step" data-delta="1">+</button></div></div><div class="vadentis-echo-emotion"><span>ÉMOTION FONDATRICE</span><b>{{talent.system.echoEmotion}}</b></div><button type="button" class="vadentis-echo-rest" title="L’Écho récupère la moitié de ses PV maximum et tous ses Pouvoirs innés redeviennent disponibles"><i class="fas fa-moon"></i><span>REPOS DE L’ÉCHO</span><small>+ moitié des PV max · réinitialise les Chants</small></button></div>
+                <div class="vadentis-echo-columns">
+                  <section class="vadentis-echo-panel"><h4><i class="fas fa-feather"></i> Compétences</h4><p class="vadentis-echo-panel-help">À la naissance : 4 points à répartir, maximum 3 par Compétence.</p><div class="vadentis-echo-skills">
+                    <div><button type="button" class="vadentis-echo-roll-skill" data-skill="athletisme"><i class="fas fa-dice-d20"></i> Athlétisme</button><button type="button" class="vadentis-echo-skill-step" data-skill="athletisme" data-delta="-1">−</button><b data-echo-skill-value="athletisme">{{talent.echoView.skills.athletisme}}</b><button type="button" class="vadentis-echo-skill-step" data-skill="athletisme" data-delta="1">+</button></div>
+                    <div><button type="button" class="vadentis-echo-roll-skill" data-skill="habilete"><i class="fas fa-dice-d20"></i> Habileté</button><button type="button" class="vadentis-echo-skill-step" data-skill="habilete" data-delta="-1">−</button><b data-echo-skill-value="habilete">{{talent.echoView.skills.habilete}}</b><button type="button" class="vadentis-echo-skill-step" data-skill="habilete" data-delta="1">+</button></div>
+                    <div><button type="button" class="vadentis-echo-roll-skill" data-skill="perception"><i class="fas fa-dice-d20"></i> Perception</button><button type="button" class="vadentis-echo-skill-step" data-skill="perception" data-delta="-1">−</button><b data-echo-skill-value="perception">{{talent.echoView.skills.perception}}</b><button type="button" class="vadentis-echo-skill-step" data-skill="perception" data-delta="1">+</button></div>
+                    <div><button type="button" class="vadentis-echo-roll-skill" data-skill="mental"><i class="fas fa-dice-d20"></i> Mental</button><button type="button" class="vadentis-echo-skill-step" data-skill="mental" data-delta="-1">−</button><b data-echo-skill-value="mental">{{talent.echoView.skills.mental}}</b><button type="button" class="vadentis-echo-skill-step" data-skill="mental" data-delta="1">+</button></div>
+                    <div><button type="button" class="vadentis-echo-roll-skill" data-skill="social"><i class="fas fa-dice-d20"></i> Social</button><button type="button" class="vadentis-echo-skill-step" data-skill="social" data-delta="-1">−</button><b data-echo-skill-value="social">{{talent.echoView.skills.social}}</b><button type="button" class="vadentis-echo-skill-step" data-skill="social" data-delta="1">+</button></div>
+                    <div><button type="button" class="vadentis-echo-roll-skill" data-skill="connaissances"><i class="fas fa-dice-d20"></i> Connaissances</button><button type="button" class="vadentis-echo-skill-step" data-skill="connaissances" data-delta="-1">−</button><b data-echo-skill-value="connaissances">{{talent.echoView.skills.connaissances}}</b><button type="button" class="vadentis-echo-skill-step" data-skill="connaissances" data-delta="1">+</button></div>
+                  </div>{{#unless talent.system.echoSkillsLocked}}<div class="vadentis-echo-skill-footer"><span>Points de naissance : <b class="vadentis-echo-skill-spent">0 / 4</b></span><button type="button" class="vadentis-echo-skills-lock"><i class="fas fa-check"></i> VALIDER</button></div>{{/unless}}</section>
+                  <section class="vadentis-echo-panel"><h4><i class="fas fa-shield-heart"></i> Combat</h4><div class="vadentis-echo-combat"><div><i class="fas fa-crosshairs"></i><span>Attaque</span><b>{{talent.echoView.attack}}</b></div><div><i class="fas fa-shield"></i><span>Défense</span><b>{{talent.echoView.defense}}</b></div><div><i class="fas fa-dumbbell"></i><span>Force</span><b>{{talent.echoView.force}}</b></div><div><i class="fas fa-person-running"></i><span>Déplacement</span><b>{{talent.echoView.speed}} m</b></div><div class="vadentis-echo-weapon"><div class="vadentis-echo-weapon-stats"><span><small>ATTAQUE</small><b>1D20 + {{talent.echoView.attack}}</b></span><span><small>DÉGÂTS</small><b>{{talent.echoView.damageDice}}D8 + {{talent.echoView.force}}</b></span></div><button type="button" class="vadentis-echo-natural-attack"><i class="fas fa-crosshairs"></i> ATTAQUER LA CIBLE</button></div></div><div class="vadentis-echo-actions vadentis-echo-actions-single"><span class="vadentis-echo-help"><b><i class="fas fa-handshake-angle"></i> Aider</b><small>Accorde +2 au prochain test d’un allié.</small></span></div></section>
+                </div>
+                {{#if talent.echoAffinitiesView.length}}
+                <section class="vadentis-echo-affinities-panel">
+                  <div class="vadentis-echo-repertoire-title"><div><span>AFFINITÉS DE DONNÉE</span><h4><i class="fas fa-gem"></i> Résonances élémentaires</h4></div><small>Pouvoirs permanents de l’Écho.</small></div>
+                  <div class="vadentis-echo-affinity-cards">
+                    {{#each talent.echoAffinitiesView as |affinity|}}
+                    <article class="vadentis-echo-affinity-card">
+                      <div class="vadentis-echo-affinity-img">{{#if affinity.img}}<img src="{{affinity.img}}" alt="{{affinity.name}}">{{else}}<i class="fas fa-gem"></i>{{/if}}</div>
+                      <div><small>{{affinity.name}}</small><strong>{{affinity.title}}</strong><p>{{affinity.effect}}</p></div>
+                    </article>
+                    {{/each}}
+                  </div>
+                </section>
+                {{/if}}
+                {{#if talent.echoPowers.length}}
+                <section class="vadentis-echo-repertoire">
+                  <div class="vadentis-echo-repertoire-title"><div><span>RÉPERTOIRE INNÉ</span><h4><i class="fas fa-music"></i> Chants de {{talent.system.echoEmotion}}</h4></div><small>Chaque Chant peut être exprimé une fois par jour.</small></div>
+                  <div class="vadentis-echo-power-list">
+                    {{#each talent.echoPowers as |power|}}
+                    <article class="vadentis-echo-power-card {{#if power.used}}is-used{{/if}}">
+                      <div class="vadentis-echo-power-icon"><i data-original-icon="{{power.icon}}" class="fas {{#if power.used}}fa-circle-check{{else}}{{power.icon}}{{/if}}"></i></div>
+                      <div class="vadentis-echo-power-copy"><small>{{power.tier}}</small><strong class="vadentis-echo-power-name">{{power.name}}</strong><p class="vadentis-echo-power-effect">{{power.effect}}</p></div>
+                      <button type="button" class="vadentis-echo-power-use {{#if power.used}}is-used{{/if}}" data-power="{{power.key}}" {{#if power.used}}disabled{{/if}}>{{#if power.used}}<i class="fas fa-circle-check"></i> UTILISÉ{{else}}<i class="fas fa-play"></i> UTILISER{{/if}}</button>
+                    </article>
+                    {{/each}}
+                  </div>
+                </section>
+                {{/if}}
+              </section>
+              {{/if}}
+              
+              {{#if talent.system.notes}}<section class="vadentis-talent-section vadentis-talent-notes vadentis-chantevie-text"><h3>Notes</h3><div class="vadentis-talent-richtext">{{{talent.notesHtml}}}</div></section>{{/if}}
+            </section>
+            {{else}}
+            {{#if talent.system.description}}<section class="vadentis-talent-section"><h3>Description</h3><div class="vadentis-talent-richtext">{{{talent.descriptionHtml}}}</div></section>{{/if}}
+            {{#if talent.system.notes}}<section class="vadentis-talent-section vadentis-talent-notes"><h3>Notes</h3><div class="vadentis-talent-richtext">{{{talent.notesHtml}}}</div></section>{{/if}}
+            {{/if}}
+            {{/if}}
+            {{/if}}
+          </div>
+        </article>
+        {{/if}}
+        {{/each}}
+      </div>
+    {{else}}
+      <div class="vadentis-talent-empty"><i class="fas fa-gem"></i><h2>Aucun Talent</h2><p>Glissez un Item <strong>Talent</strong> ici pour l'ajouter au personnage.</p></div>
+    {{/if}}
+  </div>
+</div>
+
+     {{!-- Combat Tab --}}
+<div class="tab combat" data-group="primary" data-tab="combat">
+  <div class="flexcol vadentis-combat-modern">
+    <div class="sorts-section-header"><span>✦ ARMES ÉQUIPÉES ✦</span></div>
+    <ul class="item-list alterne-list vadentis-combat-weapons">
+      {{#each armes as |arme key|}}{{#if arme.system.equipee}}
+      <li class="item list-item vadentis-weapon-row" data-item-id="{{arme._id}}">
+        <div class="vadentis-weapon-line">
+          <img class="sheet-competence-img" src="{{arme.img}}"/>
+          <a class="weapon-details-toggle vadentis-weapon-name"><i class="fas fa-chevron-right"></i> {{arme.name}}</a>
+          <span class="vadentis-weapon-ammo">{{#if (eq arme.type "tir")}}{{#if arme.system.munition}}<i class="fas fa-bullseye"></i> {{arme.system.munition}}{{/if}}{{/if}}</span>
+          <button type="button" class="weapon-attack"><i class="fas fa-dice-d20"></i> Attaque</button>
+          <div class="item-controls"><a class="item-control item-edit" title="Modifier"><i class="fas fa-edit"></i></a></div>
+        </div>
+        <div class="vadentis-weapon-details" style="display:none;">
+          <div class="vadentis-weapon-detail-grid">
+            {{#if arme.system.damage}}<div class="vadentis-detail-block"><strong>Dégâts</strong><div>{{arme.system.damage}}</div></div>{{/if}}
+            {{#if arme.system.criticaldamage}}<div class="vadentis-detail-block"><strong>Dégâts critiques</strong><div>{{arme.system.criticaldamage}}</div></div>{{/if}}
+            {{#if (eq arme.type "tir")}}{{#if arme.system.munition}}<div class="vadentis-detail-block"><strong>Munitions</strong><div>{{arme.system.munition}}</div></div>{{/if}}{{/if}}
+            {{#if (eq arme.type "tir")}}{{#if arme.system.distance}}<div class="vadentis-detail-block"><strong>Distance</strong><div>{{arme.system.distance}}</div></div>{{/if}}{{/if}}
+            {{#if arme.system.description}}<div class="vadentis-detail-block vadentis-detail-wide"><strong>Description</strong><div>{{{arme.system.description}}}</div></div>{{/if}}
+            {{#if arme.system.damage}}<div class="vadentis-detail-actions"><strong>Actions</strong><a class="weapon-damage"><i class="fas fa-dice"></i> Dégâts {{arme.system.damage}}</a>{{#if arme.system.criticaldamage}}<a class="weapon-damage-critical"><i class="fas fa-bolt"></i> Critique {{arme.system.criticaldamage}}</a>{{/if}}</div>{{else}}{{#if arme.system.criticaldamage}}<div class="vadentis-detail-actions"><strong>Actions</strong><a class="weapon-damage-critical"><i class="fas fa-bolt"></i> Critique {{arme.system.criticaldamage}}</a></div>{{/if}}{{/if}}
+          </div>
+        </div>
+      </li>
+      {{/if}}{{/each}}
+    </ul>
+
+  </div>
+</div>
+
+        {{!-- Inventaire Tab --}}
+<div class="tab equipement" data-group="primary" data-tab="equipement">
+  <div class="vadentis-inventory-engineering-top">
+    <section class="vadentis-equipment-panel vadentis-orb-bank">
+      <h3><i class="fas fa-circle-dot"></i> Orbes élémentaires</h3>
+      <div class="vadentis-orb-counter-grid">
+        {{#each ingenierieOrbSummary as |orb|}}
+        <div class="vadentis-orb-counter-card" title="{{orb.name}} : {{orb.qty}}">
+          <img class="vadentis-orb-counter-icon" src="{{orb.img}}" alt="Orbe {{orb.name}}">
+          <span class="vadentis-orb-counter-name">{{orb.name}}</span>
+          <div class="vadentis-orb-qty-editor"><button type="button" class="vadentis-orb-qty-step" data-orb-name="{{orb.name}}" data-delta="-1">−</button><input class="vadentis-orb-qty-input" type="number" min="0" step="1" value="{{orb.qty}}" data-orb-name="{{orb.name}}"><button type="button" class="vadentis-orb-qty-step" data-orb-name="{{orb.name}}" data-delta="1">+</button></div>
+        </div>
+        {{/each}}
+      </div>
+    </section>
+  </div>
+  <div class="vadentis-equipment-grid">
+    <div class="vadentis-equipment-left">
+      <section class="vadentis-equipment-panel vadentis-money-panel">
+        <h3><i class="fas fa-coins"></i> Monnaies</h3>
+        <ul class="item-list alternate-list">
+          {{#each monnaies as |monnaie key|}}
+          <li class="item flexrow list-item" data-item-id="{{monnaie._id}}">
+            <img class="sheet-competence-img" src="{{monnaie.img}}"/>
+            <span class="generic-label">{{monnaie.name}}</span>
+            <span class="generic-label vadentis-equipment-quantity vadentis-money-quantity"><input class="vadentis-money-input" type="number" min="0" step="1" value="{{monnaie.system.nombre}}" data-item-id="{{monnaie._id}}" aria-label="Quantité de {{monnaie.name}}"><a class="argent-moins plus-moins-button">-</a><a class="argent-plus plus-moins-button">+</a></span>
+            <div class="item-controls"><a class="item-control item-edit" title="Modifier"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Supprimer"><i class="fas fa-trash"></i></a></div>
+          </li>
+          {{/each}}
+        </ul>
+      </section>
+
+      <section class="vadentis-equipment-panel vadentis-weapons-panel">
+        <h3><i class="fas fa-crosshairs"></i> Armes</h3>
+        <ul class="item-list alternate-list">
+          {{#each armes as |arme key|}}
+          <li class="item flexrow list-item" data-item-id="{{arme._id}}">
+            <img class="sheet-competence-img" src="{{arme.img}}"/>
+            <span class="arme-label"><a>{{arme.name}}</a></span>
+            <span class="field-medium vadentis-equipment-ammo">{{#if (eq arme.type "tir")}}<span>{{arme.system.munition}}</span><a class="munition-moins plus-moins-button">-</a><a class="munition-plus plus-moins-button">+</a>{{/if}}</span>
+            <div class="item-filler">&nbsp;</div>
+            <div class="item-controls"><a class="item-control item-equip" title="Équipé">{{#if arme.system.equipee}}<i class="fas fa-circle"></i>{{else}}<i class="fas fa-genderless"></i>{{/if}}</a><a class="item-control item-edit" title="Modifier"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Supprimer"><i class="fas fa-trash"></i></a></div>
+          </li>
+          {{/each}}
+        </ul>
+      </section>
+
+      <section class="vadentis-equipment-panel vadentis-armor-panel">
+        <h3><i class="fas fa-shield-alt"></i> Armures</h3>
+        <ul class="item-list alternate-list">
+          {{#each armures as |armure key|}}
+          <li class="item flexrow list-item" data-item-id="{{armure._id}}">
+            <img class="sheet-competence-img" src="{{armure.img}}"/>
+            <span class="armure-label">{{armure.name}}</span><div class="item-filler">&nbsp;</div>
+            <div class="item-controls"><a class="item-control item-equip" title="Équipé">{{#if armure.system.equipee}}<i class="fas fa-circle"></i>{{else}}<i class="fas fa-genderless"></i>{{/if}}</a><a class="item-control item-edit" title="Modifier"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Supprimer"><i class="fas fa-trash"></i></a></div>
+          </li>
+          {{/each}}
+        </ul>
+      </section>
+    </div>
+
+    <div class="vadentis-equipment-right">
+      <section class="vadentis-equipment-panel vadentis-potions-panel vadentis-inventory-dropzone" data-inventory-section="potions">
+        <h3><i class="fas fa-flask"></i> Potions et conceptions alchimiques</h3>
+        <ul class="item-list alternate-list vadentis-potion-list">
+          {{#each potions as |equipement key|}}
+          <li class="item flexrow list-item vadentis-sortable-item" data-item-id="{{equipement._id}}" draggable="true">
+            <img class="sheet-competence-img vadentis-alchemy-item-icon quality-{{equipement.flags.foundryvtt-vadentis.alchimie.quality}}" src="{{equipement.img}}"/>
+            <div class="vadentis-equipment-main vadentis-potion-toggle" title="Cliquer pour afficher les détails"><span class="equipement-label">{{equipement.name}}</span><i class="fas fa-chevron-down vadentis-potion-chevron"></i>{{#if equipement.system.effect}}<div class="vadentis-potion-collapsible"><span class="vadentis-equipment-effect">{{equipement.system.effect}}</span></div>{{/if}}</div>
+            <span class="field-medium vadentis-equipment-quantity"><span class="equipement-label">{{equipement.system.quantite}}</span><a class="equipement-moins plus-moins-button">-</a><a class="equipement-plus plus-moins-button">+</a></span>
+            <div class="item-filler">&nbsp;</div>
+            <div class="item-controls">{{#if equipement.vadentisAlchemyUsable}}<button type="button" class="vadentis-alchemy-use" data-item-id="{{equipement._id}}" title="Utiliser"><i class="fas fa-flask-vial"></i><span>Utiliser</span></button>{{/if}}<a class="item-control item-equip" title="Équipé">{{#if equipement.system.equipee}}<i class="fas fa-circle"></i>{{else}}<i class="fas fa-genderless"></i>{{/if}}</a><a class="item-control item-edit" title="Modifier"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Supprimer"><i class="fas fa-trash"></i></a></div>
+          </li>
+          {{/each}}
+          
+        </ul>
+      </section>
+
+      <section class="vadentis-equipment-panel vadentis-inventory-panel vadentis-inventory-dropzone" data-inventory-section="materiel">
+        <h3><i class="fas fa-box-open"></i> Matériel</h3>
+        <ul class="item-list alternate-list">
+          {{#each materiel as |equipement key|}}
+          <li class="item flexrow list-item vadentis-sortable-item" data-item-id="{{equipement._id}}" draggable="true">
+            <img class="sheet-competence-img" src="{{equipement.img}}"/>
+            <div class="vadentis-equipment-main"><span class="equipement-label">{{equipement.name}}</span>{{#if equipement.system.effect}}<span class="vadentis-equipment-effect">{{equipement.system.effect}}</span>{{/if}}</div>
+            <span class="field-medium vadentis-equipment-quantity"><span class="equipement-label">{{equipement.system.quantite}}</span><a class="equipement-moins plus-moins-button">-</a><a class="equipement-plus plus-moins-button">+</a></span>
+            <div class="item-filler">&nbsp;</div>
+            <div class="item-controls"><a class="item-control item-equip" title="Équipé">{{#if equipement.system.equipee}}<i class="fas fa-circle"></i>{{else}}<i class="fas fa-genderless"></i>{{/if}}</a><a class="item-control item-edit" title="Modifier"><i class="fas fa-edit"></i></a><a class="item-control item-delete" title="Supprimer"><i class="fas fa-trash"></i></a></div>
+          </li>
+          {{/each}}
+          
+        </ul>
+      </section>
+    </div>
+  </div>
+
+
+</div>
+
+
+      {{!-- Sort Tab --}}
+      <div class="tab sorts" data-group="primary" data-tab="sorts">
+        <div class="flexcol">
+          <div class="sorts-section-header vadentis-symbol-header">
+  <div class="vadentis-header-symbols" aria-hidden="true">{{#each mainDataSymbols as |symbol|}}<img src="{{symbol.img}}" alt="">{{/each}}</div>
+  <span>✦ SORTS DE DONNÉES ✦</span>
+</div>
+
+<div class="sorts-par-donnee">
+            {{#each sortsParDonnee as |donnee key|}}
+              <div class="sort-donnee">
+
+                <div class="sort-donnee-header" data-donnee="{{donnee.name}}">
+                  <img class="sort-donnee-image" src="{{donnee.img}}" />
+                  <img class="sort-donnee-symbol" src="{{donnee.img}}" alt="" />
+                  <h2>{{donnee.name}}</h2>
+                </div>
+
+                {{#each donnee.paliers as |palier palierKey|}}
+                  <div class="sort-palier">
+                    <div
+                      class="sort-palier-header sort-palier-toggle"
+                      data-donnee="{{donnee.id}}"
+                      data-palier="{{palier.id}}"
+                    >
+                      <span class="sort-palier-arrow">
+                        {{#if palier.ouvert}}▼{{else}}▶{{/if}}
+                      </span>
+                      <span>{{palier.label}}</span>
+                      <span class="sort-palier-count">({{palier.sorts.length}})</span>
+                    </div>
+
+                    <ul
+                      class="item-list alterne-list sort-palier-list"
+                      data-donnee="{{donnee.id}}"
+                      data-sort-palier="{{palier.id}}"
+                      {{#unless palier.ouvert}}style="display:none;"{{/unless}}
+                    >
+
+                      {{#each palier.sorts as |sort sortKey|}}
+                        <li class="item list-item vadentis-spell-row" data-item-id="{{sort._id}}">
+                          <span class="sort-label">
+                            <a class="sort-details-toggle" title="Afficher les détails du sort"><span class="spell-source-frame spell-source-tier-{{palier.id}}" data-source-tier="{{palier.id}}"><img class="spell-source-icon" src="{{sort.sourceImg}}" alt=""></span>{{sort.name}}</a>
+                          </span>
+                          <button type="button" class="sort-cast" title="Lancer le Sort">
+                            <i class="fas fa-dice-d20"></i><span>Lancer le Sort</span>
+                          </button>
+                          <span class="sort-difficulty">Diff. <strong>{{sort.system.difficulty}}</strong></span>
+                          <div class="item-controls">
+                            <a class="item-control item-edit" title="Edit Item">
+                              <i class="fas fa-edit"></i>
+                            </a>
+                            <a class="item-control item-delete" title="Delete Item">
+                              <i class="fas fa-trash"></i>
+                            </a>
+                          </div>
+                          <div class="sort-inline-details" style="display:none;">
+                            <div class="sort-inline-grid">
+                              <section class="sort-inline-field sort-inline-target">
+                                <h4>Cible</h4>
+                                <div>{{#if sort.system.target}}{{sort.system.target}}{{else}}—{{/if}}</div>
+                              </section>
+                              <section class="sort-inline-field">
+                                <h4>Description</h4>
+                                <div class="sort-inline-richtext">{{{sort.system.notes}}}</div>
+                              </section>
+                              <section class="sort-inline-field">
+                                <h4>Effets</h4>
+                                <div class="sort-inline-richtext">{{{sort.system.effect}}}</div>
+                              </section>
+                              <section class="sort-inline-field sort-inline-critical">
+                                <h4>Effets critiques</h4>
+                                <div class="sort-inline-richtext">{{{sort.system.criticaleffect}}}</div>
+                              </section>
+                              <section class="sort-inline-actions">
+                                <span class="sort-inline-actions-title">Actions</span>
+                                {{#if sort.system.damage}}<a class="sort-damage"><i class="fas fa-dice"></i> {{sort.system.damage}}</a>{{/if}}
+                                {{#if sort.system.damagecritical}}<a class="sort-damage-critical"><i class="fas fa-bolt"></i> {{sort.system.damagecritical}}</a>{{/if}}
+                              </section>
+                            </div>
+                          </div>
+                        </li>
+                      {{/each}}
+                    </ul>
+                  </div>
+                {{/each}}
+
+              </div>
+            {{/each}}
+          </div>
+
+         <div class="devotions-section">
+
+  <div class="devotions-section-header vadentis-symbol-header">
+    <div class="vadentis-header-symbols" aria-hidden="true">{{#each churchSymbols as |symbol|}}<img src="{{symbol.img}}" alt="">{{/each}}</div>
+    <span>✦ SORTS DE DÉVOTION ✦</span>
+  </div>
+
+  <div class="devotions-par-eglise">
+
+    {{#each devotionsParEglise as |eglise key|}}
+
+      <div class="devotion-eglise">
+
+        <div
+          class="devotion-eglise-header"
+          data-eglise="{{eglise.name}}"
+        >
+          <img
+            class="devotion-eglise-image"
+            src="{{eglise.img}}"
+          />
+          <img class="devotion-eglise-symbol" src="{{eglise.img}}" alt="" />
+
+          <h2>{{eglise.name}}</h2>
+        </div>
+
+        <ul class="item-list alterne-list devotion-list">
+
+
+          {{#each eglise.devotions as |devotion devotionKey|}}
+
+            <li class="item list-item vadentis-spell-row" data-item-id="{{devotion._id}}">
+              <span class="devotion-label sort-label">
+                <a class="devotion-details-toggle" title="Afficher les détails du sort"><span class="spell-source-frame spell-source-devotion" data-source-tier="devotion"><img class="spell-source-icon" src="{{devotion.sourceImg}}" alt=""></span>{{devotion.name}}</a>
+              </span>
+              <button type="button" class="devotion-cast sort-cast" title="Lancer le Sort">
+                <i class="fas fa-dice-d20"></i><span>Lancer le Sort</span>
+              </button>
+              <span class="sort-difficulty">Diff. <strong>{{devotion.system.difficulty}}</strong></span>
+              <div class="item-controls">
+                <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+              </div>
+              <div class="sort-inline-details" style="display:none;">
+                <div class="sort-inline-grid">
+                  <section class="sort-inline-field sort-inline-target"><h4>Cible</h4><div>{{#if devotion.system.target}}{{devotion.system.target}}{{else}}—{{/if}}</div></section>
+                  <section class="sort-inline-field"><h4>Description</h4><div class="sort-inline-richtext">{{{devotion.system.notes}}}</div></section>
+                  <section class="sort-inline-field"><h4>Effets</h4><div class="sort-inline-richtext">{{{devotion.system.effect}}}</div></section>
+                  <section class="sort-inline-field sort-inline-critical"><h4>Effets critiques</h4><div class="sort-inline-richtext">{{{devotion.system.criticaleffect}}}</div></section>
+                  <section class="sort-inline-actions">
+                    <span class="sort-inline-actions-title">Actions</span>
+                    {{#if devotion.system.damage}}<a class="sort-damage"><i class="fas fa-dice"></i> {{devotion.system.damage}}</a>{{/if}}
+                    {{#if devotion.system.damagecritical}}<a class="sort-damage-critical"><i class="fas fa-bolt"></i> {{devotion.system.damagecritical}}</a>{{/if}}
+                  </section>
+                </div>
+              </div>
+            </li>
+
+          {{/each}}
+
+        </ul>
+
+      </div>
+
+    {{/each}}
+
+  </div>
+
+</div>
+        </div>
+      </div>
+
+        {{!-- Inventaire Tab --}}
+{{!-- Biography Tab --}}
+      <div class="tab description" data-group="primary" data-tab="description">
+        <div class="vadentis-description-page">
+          <section class="vadentis-description-card">
+            <header><i class="fas fa-book-open"></i><div><h2>Biographie</h2><p>Histoire, parcours et éléments marquants du personnage.</p></div></header>
+            <div class="vadentis-description-editor">{{editor history target="system.history" button=true owner=owner editable=editable}}</div>
+          </section>
+          <section class="vadentis-description-card">
+            <header><i class="fas fa-feather-alt"></i><div><h2>Notes</h2><p>Informations utiles, souvenirs et détails de jeu.</p></div></header>
+            <div class="vadentis-description-editor">{{editor notes target="system.notes" button=true owner=owner editable=editable}}</div>
+          </section>
+          <section class="vadentis-description-gm">{{>"systems/foundryvtt-vadentis/templates/editor-notes-gm.html"}}</section>
+        </div>
+      </div>
+    </section>
+</form>
+

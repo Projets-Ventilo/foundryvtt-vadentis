@@ -1,0 +1,26 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}"/>
+        <div class="header-fields">
+            <h1 class="charname"><input name="name" type="text" value="{{name}}" placeholder="Name"/></h1>
+        </div>
+    </header>
+
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+
+        <div class="tab" data-group="primary">
+          <ul>
+            <li class="flexrow"><label class="generic-label">Base</label><input type="text" name="system.base" value="{{data.base}}" data-dtype="Number"/></li>
+            <li class="flexrow"><label class="generic-label">Malus</label><input type="text" name="system.malus" value="{{data.malus}}" data-dtype="Number"/></li>
+            <li class="flexrow"><label class="generic-label">Bonus</label><input type="text" name="system.bonus" value="{{data.bonus}}" data-dtype="Number"/></li>
+            <li class="flexrow"><label class="generic-label">XP</label><input type="text" name="system.xp" value="{{data.xp}}" data-dtype="Number"/></li>
+          </ul>
+          <hr>
+
+          <h4 class="generic-label">Description</h4>
+          {{editor description target="system.description" button=true owner=owner editable=editable}}
+        </div>
+
+    </section>
+</form>

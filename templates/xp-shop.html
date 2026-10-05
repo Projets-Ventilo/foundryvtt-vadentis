@@ -1,0 +1,320 @@
+<div class="xp-shop-content">
+
+  <h2>Magasin d'XP</h2>
+
+  <p>
+    Personnage :
+    <strong>{{name}}</strong>
+  </p>
+
+  <p>
+    XP disponible :
+    <strong>{{xp}} XP</strong>
+  </p>
+
+  <hr>
+
+  <h3>Achats</h3>
+
+  <div class="xp-shop-purchases">
+
+    {{#if purchases.length}}
+
+      {{#each purchases as |purchase index|}}
+        <div class="xp-shop-purchase" data-index="{{index}}">
+
+          <img
+            class="xp-shop-purchase-img"
+            src="{{purchase.img}}"
+            width="32"
+            height="32"
+          />
+
+          <span class="xp-shop-purchase-name">
+            {{purchase.name}}
+          </span>
+
+          <span class="xp-shop-purchase-type">
+            {{purchase.type}}
+          </span>
+
+          <span class="xp-shop-purchase-cost">
+            {{purchase.cost}} XP
+          </span>
+
+          <button
+            type="button"
+            class="xp-shop-purchase-remove"
+            data-index="{{index}}"
+          >
+            −
+          </button>
+
+        </div>
+      {{/each}}
+
+    {{else}}
+
+      <p>
+        Déposez ici les éléments à acheter.
+      </p>
+
+    {{/if}}
+
+  </div>
+
+  <hr>
+
+  <h3>Augmentations de caractéristiques</h3>
+
+  <section class="xp-shop-talents">
+    <div class="xp-shop-talents-head">
+      <small>TALENTS</small>
+      <h3><i class="fas fa-gem"></i> Débloquer un Talent</h3>
+      <p>Les prérequis mécaniques sont contrôlés automatiquement. Les conditions narratives restent à la table.</p>
+    </div>
+    <div class="xp-shop-talent-grid">
+      {{#each talentShop as |talent|}}
+      <article class="xp-shop-talent-card theme-{{talent.theme}} {{#if talent.owned}}is-owned{{/if}} {{#unless talent.ok}}is-locked{{/unless}}">
+        <div class="xp-shop-talent-title"><i class="fas {{talent.icon}}"></i><div><strong>{{talent.name}}</strong><small>{{talent.cost}} XP</small></div></div>
+        <p>{{talent.summary}}</p>
+        <div class="xp-shop-talent-condition {{#if talent.ok}}ok{{else}}no{{/if}}"><i class="fas {{#if talent.ok}}fa-circle-check{{else}}fa-lock{{/if}}"></i> {{talent.mechanical}}</div>
+        {{#if talent.narrativeLines.length}}<div class="xp-shop-talent-narrative">{{#each talent.narrativeLines as |line|}}<span><i class="fas fa-book-open"></i> {{line}}</span>{{/each}}</div>{{/if}}
+        {{#if talent.owned}}
+          <button type="button" disabled><i class="fas fa-check"></i> ACQUIS</button>
+        {{else}}
+          <button type="button" class="xp-shop-talent-buy {{#if talent.selected}}is-selected{{/if}}" data-talent="{{talent.key}}" {{#unless talent.ok}}disabled{{/unless}}>
+            {{#if talent.selected}}RETIRER DU PANIER{{else}}AJOUTER · {{talent.cost}} XP{{/if}}
+          </button>
+        {{/if}}
+      </article>
+      {{/each}}
+    </div>
+  </section>
+
+  <hr>
+
+  <div class="xp-shop-stats">
+
+    <div class="xp-shop-stat">
+      <span class="xp-shop-stat-name">Points de Vie</span>
+      <button type="button" class="xp-shop-stat-minus" data-stat="pointsvie">−</button>
+      <span class="xp-shop-stat-value">+0</span>
+      <button type="button" class="xp-shop-stat-plus" data-stat="pointsvie">+</button>
+      <span class="xp-shop-stat-cost">50 XP / point</span>
+    </div>
+
+    <div class="xp-shop-stat">
+      <span class="xp-shop-stat-name">Points d'Énergie</span>
+      <button type="button" class="xp-shop-stat-minus" data-stat="pointsenergie">−</button>
+      <span class="xp-shop-stat-value">+0</span>
+      <button type="button" class="xp-shop-stat-plus" data-stat="pointsenergie">+</button>
+      <span class="xp-shop-stat-cost">50 XP / point</span>
+    </div>
+
+    <div class="xp-shop-stat">
+      <span class="xp-shop-stat-name">Points d'Adrénaline</span>
+      <button type="button" class="xp-shop-stat-minus" data-stat="pointsadrenaline">−</button>
+      <span class="xp-shop-stat-value">+0</span>
+      <button type="button" class="xp-shop-stat-plus" data-stat="pointsadrenaline">+</button>
+      <span class="xp-shop-stat-cost">500 XP / point</span>
+    </div>
+
+    <div class="xp-shop-stat">
+      <span class="xp-shop-stat-name">Initiative</span>
+      <button type="button" class="xp-shop-stat-minus" data-stat="initiative">−</button>
+      <span class="xp-shop-stat-value">+0</span>
+      <button type="button" class="xp-shop-stat-plus" data-stat="initiative">+</button>
+      <span class="xp-shop-stat-cost">100 XP / point</span>
+    </div>
+
+    <div class="xp-shop-stat">
+      <span class="xp-shop-stat-name">Force</span>
+      <button type="button" class="xp-shop-stat-minus" data-stat="force">−</button>
+      <span class="xp-shop-stat-value">+0</span>
+      <button type="button" class="xp-shop-stat-plus" data-stat="force">+</button>
+      <span class="xp-shop-stat-cost">500 XP / point</span>
+    </div>
+
+    <div class="xp-shop-stat">
+      <span class="xp-shop-stat-name">Attaque</span>
+      <button type="button" class="xp-shop-stat-minus" data-stat="attaque">−</button>
+      <span class="xp-shop-stat-value">+0</span>
+      <button type="button" class="xp-shop-stat-plus" data-stat="attaque">+</button>
+      <span class="xp-shop-stat-cost">500 XP / point</span>
+    </div>
+
+    <div class="xp-shop-stat">
+      <span class="xp-shop-stat-name">Défense</span>
+      <button type="button" class="xp-shop-stat-minus" data-stat="defense">−</button>
+      <span class="xp-shop-stat-value">+0</span>
+      <button type="button" class="xp-shop-stat-plus" data-stat="defense">+</button>
+      <span class="xp-shop-stat-cost">500 XP / point</span>
+    </div>
+
+    <div class="xp-shop-stat">
+      <span class="xp-shop-stat-name">Vitesse</span>
+      <button type="button" class="xp-shop-stat-minus" data-stat="vitesse">−</button>
+      <span class="xp-shop-stat-value">+0</span>
+      <button type="button" class="xp-shop-stat-plus" data-stat="vitesse">+</button>
+      <span class="xp-shop-stat-cost">300 XP / point</span>
+    </div>
+
+    <div class="xp-shop-stat">
+      <span class="xp-shop-stat-name">Maîtrise Données</span>
+      <button type="button" class="xp-shop-stat-minus" data-stat="matriseelementaire">−</button>
+      <span class="xp-shop-stat-value">+0</span>
+      <button type="button" class="xp-shop-stat-plus" data-stat="matriseelementaire">+</button>
+      <span class="xp-shop-stat-cost">500 XP / point</span>
+    </div>
+
+    <div class="xp-shop-stat">
+      <span class="xp-shop-stat-name">Dévotion</span>
+      <button type="button" class="xp-shop-stat-minus" data-stat="devotion">−</button>
+      <span class="xp-shop-stat-value">+0</span>
+      <button type="button" class="xp-shop-stat-plus" data-stat="devotion">+</button>
+      <span class="xp-shop-stat-cost">500 XP / point</span>
+    </div>
+
+  </div>
+
+  <hr>
+
+  <h3>Compétences</h3>
+
+  <div class="xp-shop-competences">
+
+    <div class="xp-shop-competence">
+      <span class="xp-shop-competence-name">Athlétisme</span>
+      <button type="button" class="xp-shop-competence-minus" data-competence="Athlétisme">−</button>
+      <span class="xp-shop-competence-value">+0</span>
+      <button type="button" class="xp-shop-competence-plus" data-competence="Athlétisme">+</button>
+      <span class="xp-shop-competence-cost">100 / 150 / 200 / 250 XP</span>
+    </div>
+
+    <div class="xp-shop-competence">
+      <span class="xp-shop-competence-name">Connaissances</span>
+      <button type="button" class="xp-shop-competence-minus" data-competence="Connaissances">−</button>
+      <span class="xp-shop-competence-value">+0</span>
+      <button type="button" class="xp-shop-competence-plus" data-competence="Connaissances">+</button>
+      <span class="xp-shop-competence-cost">100 / 150 / 200 / 250 XP</span>
+    </div>
+
+    <div class="xp-shop-competence">
+      <span class="xp-shop-competence-name">Habileté</span>
+      <button type="button" class="xp-shop-competence-minus" data-competence="Habileté">−</button>
+      <span class="xp-shop-competence-value">+0</span>
+      <button type="button" class="xp-shop-competence-plus" data-competence="Habileté">+</button>
+      <span class="xp-shop-competence-cost">100 / 150 / 200 / 250 XP</span>
+    </div>
+
+    <div class="xp-shop-competence">
+      <span class="xp-shop-competence-name">Mental</span>
+      <button type="button" class="xp-shop-competence-minus" data-competence="Mental">−</button>
+      <span class="xp-shop-competence-value">+0</span>
+      <button type="button" class="xp-shop-competence-plus" data-competence="Mental">+</button>
+      <span class="xp-shop-competence-cost">100 / 150 / 200 / 250 XP</span>
+    </div>
+
+    <div class="xp-shop-competence">
+      <span class="xp-shop-competence-name">Perceptions</span>
+      <button type="button" class="xp-shop-competence-minus" data-competence="Perceptions">−</button>
+      <span class="xp-shop-competence-value">+0</span>
+      <button type="button" class="xp-shop-competence-plus" data-competence="Perceptions">+</button>
+      <span class="xp-shop-competence-cost">100 / 150 / 200 / 250 XP</span>
+    </div>
+
+    <div class="xp-shop-competence">
+      <span class="xp-shop-competence-name">Social</span>
+      <button type="button" class="xp-shop-competence-minus" data-competence="Social">−</button>
+      <span class="xp-shop-competence-value">+0</span>
+      <button type="button" class="xp-shop-competence-plus" data-competence="Social">+</button>
+      <span class="xp-shop-competence-cost">100 / 150 / 200 / 250 XP</span>
+    </div>
+
+  </div>
+
+  {{#if hasChanteVie}}
+  <section class="xp-shop-chantevie">
+    <div class="xp-shop-chantevie-head">
+      <div><small>CHANTE-VIE</small><h3><i class="fas fa-music"></i> Évolution de l’Écho</h3></div>
+      {{#if echoBound}}<span>{{echoTier}}</span>{{else}}<span>Écho non créé</span>{{/if}}
+    </div>
+
+    {{#if echoBound}}
+    <button type="button" class="xp-shop-echo-strengthen">
+      <i class="fas fa-link"></i>
+      <span><b>Renforcer le lien</b><small>Sacrifier davantage de PV maximum pour faire évoluer l’Écho.</small></span>
+    </button>
+
+    <div class="xp-shop-echo-upgrades">
+      <div class="xp-shop-echo-affinity-title">
+        <div><b>Évolutions de l’Écho</b><small>Préparez plusieurs augmentations : le coût total se met à jour immédiatement.</small></div>
+      </div>
+
+      <div class="xp-shop-echo-stat-list">
+        <div class="xp-shop-echo-stat"><span><b>Attaque</b><small>400 XP / +1 · max 10</small></span><div><button type="button" class="xp-shop-echo-adjust" data-upgrade="attack" data-delta="-1">−</button><strong>{{echoStats.attack}} + {{echoUpgradeSelections.attack}}</strong><button type="button" class="xp-shop-echo-adjust" data-upgrade="attack" data-delta="1">+</button></div></div>
+        <div class="xp-shop-echo-stat"><span><b>Défense</b><small>400 XP / +1 · max 15</small></span><div><button type="button" class="xp-shop-echo-adjust" data-upgrade="defense" data-delta="-1">−</button><strong>{{echoStats.defense}} + {{echoUpgradeSelections.defense}}</strong><button type="button" class="xp-shop-echo-adjust" data-upgrade="defense" data-delta="1">+</button></div></div>
+        <div class="xp-shop-echo-stat"><span><b>Force</b><small>400 XP / +1 · max 10</small></span><div><button type="button" class="xp-shop-echo-adjust" data-upgrade="force" data-delta="-1">−</button><strong>{{echoStats.force}} + {{echoUpgradeSelections.force}}</strong><button type="button" class="xp-shop-echo-adjust" data-upgrade="force" data-delta="1">+</button></div></div>
+        <div class="xp-shop-echo-stat"><span><b>Déplacement</b><small>200 XP / +3 m · max 20 m</small></span><div><button type="button" class="xp-shop-echo-adjust" data-upgrade="speed" data-delta="-1">−</button><strong>{{echoStats.speed}} m + {{echoUpgradeSelections.speed}}×3</strong><button type="button" class="xp-shop-echo-adjust" data-upgrade="speed" data-delta="1">+</button></div></div>
+      </div>
+
+      <div class="xp-shop-echo-damage-row">
+        <div><b>Dégâts améliorés</b><small>Chaque niveau est achetable une seule fois.</small></div>
+        <button type="button" class="xp-shop-echo-damage" data-level="1" {{#if echoStats.damage1Owned}}disabled{{/if}}><b>I · +1D8</b><span>{{#if echoStats.damage1Owned}}ACQUIS{{else}}400 XP{{/if}}</span></button>
+        <button type="button" class="xp-shop-echo-damage" data-level="2" {{#unless echoStats.damage2Available}}disabled{{/unless}} {{#if echoStats.damage2Owned}}disabled{{/if}}><b>II · +1D8</b><span>{{#if echoStats.damage2Owned}}ACQUIS{{else}}500 XP{{/if}}</span></button>
+      </div>
+
+      <div class="xp-shop-echo-skill-upgrades">
+        <b>Compétences de l’Écho</b><small>200 XP / +1 · maximum 10</small>
+        <div class="xp-shop-echo-skill-lines">
+          <div class="xp-shop-echo-stat"><span>Athlétisme</span><div><button type="button" class="xp-shop-echo-adjust" data-upgrade="skill:athletisme" data-delta="-1">−</button><strong>{{echoStats.skills.athletisme}} + {{echoUpgradeSelections.skillAthletisme}}</strong><button type="button" class="xp-shop-echo-adjust" data-upgrade="skill:athletisme" data-delta="1">+</button></div></div>
+          <div class="xp-shop-echo-stat"><span>Habileté</span><div><button type="button" class="xp-shop-echo-adjust" data-upgrade="skill:habilete" data-delta="-1">−</button><strong>{{echoStats.skills.habilete}} + {{echoUpgradeSelections.skillHabilete}}</strong><button type="button" class="xp-shop-echo-adjust" data-upgrade="skill:habilete" data-delta="1">+</button></div></div>
+          <div class="xp-shop-echo-stat"><span>Perception</span><div><button type="button" class="xp-shop-echo-adjust" data-upgrade="skill:perception" data-delta="-1">−</button><strong>{{echoStats.skills.perception}} + {{echoUpgradeSelections.skillPerception}}</strong><button type="button" class="xp-shop-echo-adjust" data-upgrade="skill:perception" data-delta="1">+</button></div></div>
+          <div class="xp-shop-echo-stat"><span>Mental</span><div><button type="button" class="xp-shop-echo-adjust" data-upgrade="skill:mental" data-delta="-1">−</button><strong>{{echoStats.skills.mental}} + {{echoUpgradeSelections.skillMental}}</strong><button type="button" class="xp-shop-echo-adjust" data-upgrade="skill:mental" data-delta="1">+</button></div></div>
+          <div class="xp-shop-echo-stat"><span>Social</span><div><button type="button" class="xp-shop-echo-adjust" data-upgrade="skill:social" data-delta="-1">−</button><strong>{{echoStats.skills.social}} + {{echoUpgradeSelections.skillSocial}}</strong><button type="button" class="xp-shop-echo-adjust" data-upgrade="skill:social" data-delta="1">+</button></div></div>
+          <div class="xp-shop-echo-stat"><span>Connaissances</span><div><button type="button" class="xp-shop-echo-adjust" data-upgrade="skill:connaissances" data-delta="-1">−</button><strong>{{echoStats.skills.connaissances}} + {{echoUpgradeSelections.skillConnaissances}}</strong><button type="button" class="xp-shop-echo-adjust" data-upgrade="skill:connaissances" data-delta="1">+</button></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="xp-shop-echo-affinity-block">
+      <div class="xp-shop-echo-affinity-title">
+        <div><b>Affinités de Donnée</b><small>600 XP par Donnée maîtrisée. Plusieurs Affinités sont possibles.</small></div>
+        <strong>600 XP / Affinité</strong>
+      </div>
+      {{#if availableEchoAffinities.length}}
+        <div class="xp-shop-echo-affinities">
+          {{#each availableEchoAffinities}}
+          <button type="button" class="xp-shop-echo-affinity {{#if owned}}is-owned{{/if}}" data-affinity="{{name}}" {{#if owned}}disabled{{/if}}>
+            {{#if img}}<span class="xp-shop-data-icon"><img src="{{img}}" alt="{{name}}"></span>{{else}}<i class="fas {{icon}}"></i>{{/if}}
+            <span>{{name}}</span>{{#if owned}}<small>ACQUISE</small>{{/if}}
+          </button>
+          {{/each}}
+        </div>
+        <p class="xp-shop-echo-affinity-help">Seules les Données maîtrisées par ce personnage sont proposées. Chaque Affinité coûte 600 XP.</p>
+      {{else}}
+        <p class="xp-shop-echo-affinity-help">Aucune Donnée maîtrisée détectée sur ce personnage.</p>
+      {{/if}}
+    </div>
+    {{/if}}
+  </section>
+
+  <hr>
+  {{/if}}
+
+  <p class="xp-shop-total-cost">
+    XP dépensée : 0 XP
+  </p>
+
+  <p class="xp-shop-remaining-xp">
+    XP restante : {{xp}} XP
+  </p>
+
+  <div class="xp-shop-actions">
+    <button type="button" class="xp-shop-confirm">
+      Valider les achats
+    </button>
+  </div>
+
+</div>

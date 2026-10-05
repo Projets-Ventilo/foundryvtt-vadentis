@@ -1,0 +1,298 @@
+{
+  "id": "foundryvtt-vadentis",
+  "title": "Vadentis",
+  "description": "Système Vadentis pour FoundryVTT",
+  "version": "2.0.4",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "12",
+    "maximum": "12"
+  },
+  "authors": [
+    {
+      "name": "Uberwald",
+      "flags": {}
+    }
+  ],
+  "esmodules": [
+    "modules/vadentis-main.js"
+  ],
+  "styles": [
+    "styles/simple.css",
+    "styles/talents.css",
+    "styles/ingenierie-inventory.css",
+    "styles/ingenierie-step3-actions.css",
+    "styles/ingenierie-step10-window.css"
+  ],
+  "background": "systems/foundryvtt-vadentis/images/ui/vadentis_map.webp",
+  "packFolders": [
+    {
+      "name": "* Manuel de jeu et règles",
+      "sorting": "m",
+      "color": "#ff7300",
+      "packs": [
+        "attributs",
+        "bestiaire",
+        "carte",
+        "techniques",
+        "competences",
+        "croyances",
+        "donnees",
+        "sorts",
+        "maps",
+        "pj-archetypes",
+        "illustrations-bestiaire"
+      ],
+      "folders": []
+    },
+    {
+      "name": "Equipement",
+      "sorting": "m",
+      "color": "#a3a3a3",
+      "folders": [],
+      "packs": [
+        "armes",
+        "armures",
+        "materiel"
+      ]
+    },
+    {
+      "name": "Scénario d'introduction",
+      "sorting": "m",
+      "color": "#009dff",
+      "folders": [],
+      "packs": [
+        "scenarios-cheminement",
+        "scenarios-maps",
+        "scenarios-pnj"
+      ]
+    }
+  ],
+  "packs": [
+    {
+      "label": "SORTS",
+      "type": "Item",
+      "name": "sorts",
+      "path": "packs/sorts",
+      "system": "foundryvtt-vadentis",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    },
+    {
+      "label": "ATTRIBUTS",
+      "type": "Item",
+      "name": "attributs",
+      "path": "packs/attributs",
+      "system": "foundryvtt-vadentis",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    },
+    {
+      "label": "CARTE",
+      "type": "JournalEntry",
+      "name": "carte",
+      "path": "packs/carte",
+      "system": "foundryvtt-vadentis",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    },
+    {
+      "label": "ILLUSTRATIONS-BESTIARE",
+      "type": "JournalEntry",
+      "name": "illustrations-bestiaire",
+      "path": "packs/illustrations-bestiaire",
+      "system": "foundryvtt-vadentis",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    },
+    {
+      "label": "TECHNIQUES",
+      "type": "Item",
+      "name": "techniques",
+      "path": "packs/techniques",
+      "system": "foundryvtt-vadentis",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    },
+    {
+      "label": "MAPS",
+      "type": "Scene",
+      "name": "maps",
+      "path": "packs/maps",
+      "system": "foundryvtt-vadentis",
+      "ownership": {
+        "PLAYER": "NONE",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    },
+    {
+      "label": "ARMES",
+      "type": "Item",
+      "name": "armes",
+      "path": "packs/armes",
+      "system": "foundryvtt-vadentis",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    },
+    {
+      "label": "ARMURES",
+      "type": "Item",
+      "name": "armures",
+      "path": "packs/armures",
+      "system": "foundryvtt-vadentis",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    },
+    {
+      "label": "MATÉRIEL",
+      "type": "Item",
+      "name": "materiel",
+      "path": "packs/materiel",
+      "system": "foundryvtt-vadentis",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    },
+    {
+      "label": "COMPÉTENCES",
+      "type": "Item",
+      "name": "competences",
+      "path": "packs/competences",
+      "system": "foundryvtt-vadentis",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    },
+    {
+      "label": "DONNÉES",
+      "type": "Item",
+      "name": "donnees",
+      "path": "packs/donnees",
+      "system": "foundryvtt-vadentis",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    },
+    {
+      "label": "BESTIAIRE",
+      "type": "Actor",
+      "name": "bestiaire",
+      "path": "packs/bestiaire",
+      "system": "foundryvtt-vadentis",
+      "ownership": {
+        "PLAYER": "NONE",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    },
+    {
+      "label": "SCÉNARIOS - Cheminement",
+      "type": "JournalEntry",
+      "name": "scenarios-cheminement",
+      "path": "packs/scenarios-cheminement",
+      "system": "foundryvtt-vadentis",
+      "ownership": {
+        "PLAYER": "NONE",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    },
+    {
+      "label": "SCÉNARIOS - PNJ",
+      "type": "Actor",
+      "name": "scenarios-pnj",
+      "path": "packs/scenarios-pnj",
+      "system": "foundryvtt-vadentis",
+      "ownership": {
+        "PLAYER": "NONE",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    },
+    {
+      "label": "SCÉNARIOS - Maps",
+      "type": "Scene",
+      "name": "scenarios-maps",
+      "path": "packs/scenarios-maps",
+      "system": "foundryvtt-vadentis",
+      "ownership": {
+        "PLAYER": "NONE",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    },
+    {
+      "label": "PJ - ARCHÉTYPES",
+      "type": "Actor",
+      "name": "pj-archetypes",
+      "path": "packs/pj-archetypes",
+      "system": "foundryvtt-vadentis",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    },
+    {
+      "label": "CROYANCES",
+      "type": "Item",
+      "name": "croyances",
+      "path": "packs/croyances",
+      "system": "foundryvtt-vadentis",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    }
+  ],
+  "languages": [
+    {
+      "lang": "fr",
+      "name": "French",
+      "path": "lang/fr.json",
+      "flags": {}
+    }
+  ],
+  "grid": {
+    "distance": 5,
+    "units": "m"
+  },
+  "primaryTokenAttribute": "",
+  "secondaryTokenAttribute": "",
+  "socket": true,
+  "url": "https://github.com/Projets-Ventilo/foundryvtt-vadentis",
+  "license": "LICENSE.txt",
+  "manifest": "https://raw.githubusercontent.com/Projets-Ventilo/foundryvtt-vadentis/main/system.json",
+  "download": "https://github.com/Projets-Ventilo/foundryvtt-vadentis/releases/download/v2.0.4/foundryvtt-vadentis-v2.0.4.zip",
+  "bugs": "https://github.com/Projets-Ventilo/foundryvtt-vadentis/issues",
+  "changelog": "https://github.com/Projets-Ventilo/foundryvtt-vadentis/releases/tag/v2.0.4"
+}

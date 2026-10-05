@@ -1,0 +1,38 @@
+<div class="vadentis-chat-card {{#if state}}vadentis-chat-{{state}}{{/if}} {{#if critique}}vadentis-chat-critical{{/if}} {{#if isSort}}vadentis-chat-spell{{/if}}">
+  <header class="vadentis-chat-header">
+    <div class="vadentis-chat-icon-wrap {{#if (eq sourceName "Vent")}}vadentis-chat-source-vent{{/if}}"><img class="chat-icon" src="{{img}}" alt="{{title}}" /></div>
+    <div class="vadentis-chat-heading">
+      <h4>{{title}}</h4>
+      {{#if outcome}}<span class="vadentis-chat-outcome">{{outcome}}</span>{{/if}}
+    </div>
+    {{#if actorImg}}<div class="vadentis-chat-actor-wrap" title="{{alias}}"><img class="vadentis-chat-actor" src="{{actorImg}}" alt="{{alias}}" /></div>{{/if}}
+  </header>
+  {{#unless isGMHealth}}
+  {{#if result}}
+  <div class="vadentis-chat-result"><span>{{#if resultLabel}}{{resultLabel}}{{else}}RÉSULTAT{{/if}}</span><strong>{{result}}</strong>{{#if target}}<small> / {{target}}</small>{{/if}}</div>
+  {{/if}}
+  {{/unless}}
+  {{#if effectAmount}}
+  <div class="vadentis-chat-spell-effect {{#if (eq effectType "heal")}}vadentis-chat-heal-effect{{else}}vadentis-chat-damage-effect{{/if}}">
+    {{#if targetImg}}<div class="vadentis-chat-victim"><img src="{{targetImg}}" alt="{{targetName}}" /><span>{{#if (eq effectType "heal")}}✚{{else}}✦{{/if}}</span></div>{{/if}}
+    <div class="vadentis-chat-damage-main"><span>{{effectLabel}}</span><strong>{{effectAmount}}</strong>{{#if effectFormula}}<small>{{effectFormula}}</small>{{/if}}</div>
+    {{#if targetName}}<div class="vadentis-chat-hit-label">{{#if (eq effectType "heal")}}✚ {{targetName}} est soigné{{else}}💥 {{targetName}} est touché{{/if}}</div>{{/if}}
+  </div>
+  {{/if}}
+  {{#if isGMHealth}}
+  <div class="vadentis-chat-gm-health">
+    <div class="vadentis-chat-health-flow"><span>PV</span><strong>{{healthBefore}}</strong><b>→</b><strong>{{healthAfter}}</strong><small>/ {{healthMax}}</small></div>
+  </div>
+  {{/if}}
+  {{#if damage}}
+  <div class="vadentis-chat-damage">
+    {{#if targetImg}}<div class="vadentis-chat-victim"><img src="{{targetImg}}" alt="{{targetName}}" /><span>✦</span></div>{{/if}}
+    <div class="vadentis-chat-damage-main"><span>DÉGÂTS INFLIGÉS</span><strong>{{damage}}</strong>{{#if damageFormula}}<small>{{damageFormula}}</small>{{/if}}</div>
+    {{#if targetName}}<div class="vadentis-chat-hit-label">💥 {{targetName}} est touché{{#if targetFeminine}}e{{/if}}</div>{{/if}}
+  </div>
+  {{/if}}
+  <div class="vadentis-chat-body">{{{msg}}}</div>
+  {{#if critique}}
+  <div class="vadentis-chat-critical-banner"><span class="vadentis-critical-star">✦</span><img src="{{imgcritique}}" alt="critique" /><strong>{{msgCritique}}</strong><span class="vadentis-critical-star">✦</span></div>
+  {{/if}}
+</div>

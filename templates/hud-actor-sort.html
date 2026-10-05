@@ -1,0 +1,10 @@
+<div class="control-icon vadentis-sort ">
+  <img class="vadentis-hud-togglebutton" src="systems/foundryvtt-vadentis/images/icons/icone_item_sorts_élémentaires.webp" width="36" height="36" title="Sorts"/>
+  <div class="vadentis-hud-list tokenhudext right">
+    {{#each sorts as |sort key|}}
+    <div class="control-icon tokenhudicon vadentis-hud-menu vadentis-attaque" data-actor-id="{{../actor._id}}" data-sort-id="{{sort._id}}"  title="{{sort.name}}">
+      <label>S:{{sort.name}}</label>
+    </div>
+    {{/each}}
+  </div>
+</div>
